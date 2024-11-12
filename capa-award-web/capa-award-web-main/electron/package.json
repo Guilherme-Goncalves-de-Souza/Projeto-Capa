@@ -1,0 +1,14 @@
+{
+  "name": "weapon-x",
+  "version": "1.0.0",
+  "description": "An application to generate applications",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  }, 
+  "author": "GitHub",
+  "license": "CC0-1.0",
+  "devDependencies": {
+    "electron": "^16.0.7"
+  }
+}

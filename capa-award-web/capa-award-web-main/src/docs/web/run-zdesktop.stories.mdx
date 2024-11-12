@@ -1,0 +1,44 @@
+import { Meta } from '@storybook/addon-docs';
+import { storybookStyles } from './styles' 
+
+<Meta title="Web/Docs/Desktop" />
+
+<style>
+  { storybookStyles }
+</style>
+
+# Desktop Apps with Electron
+ 
+<div className="subheading">On root folder in your application</div>
+
+take sure your web application is running on development mode
+
+Run with `yarn`
+```sh
+    yarn desktop
+```
+
+Or run with `npm`
+```sh
+    npm run desktop
+```
+
+### an desktop application will be open embeding your web development mode
+
+- to change address of page renderized, access `elecron/main.js`.
+
+<div className="subheading">Next Step</div>
+<div className="link-list">
+  <a className="link-item" href="?path=/docs/web-introduction--page" > 
+    <span>
+      <strong>Back to Intro</strong>
+      See introduction page
+    </span>
+  </a> 
+  <a className="link-item" href="https://www.electronjs.org/pt/docs/latest/tutorial/examples" > 
+    <span>
+      <strong>Learn more about Electron</strong>
+      Building Multiplataform Desktop Apps
+    </span>
+  </a>
+</div>

@@ -1,0 +1,52 @@
+import { Meta } from '@storybook/addon-docs';
+import { storybookStyles } from './styles' 
+
+<Meta title="Web/Docs/Run" />
+
+<style>
+  { storybookStyles }
+</style>
+
+# Run project in Development mode
+ 
+<div className="subheading">On root folder in your application</div>
+
+Run with `yarn`
+```sh
+    yarn start
+```
+
+Or run with `npm`
+```sh
+    npm start
+```
+
+### then access 
+```txt
+    localhost:3000
+```
+
+
+<div className="tip-wrapper">
+  <span className="tip">Tip</span>if you have some problem to run you project, follow steps bellow{' '}
+  <code>🤵‍♂️</code>
+</div>
+
+```sh
+    rm -rf node_modules
+```
+
+```sh
+    yarn && yarn start
+```
+ 
+
+<div className="subheading">Next Step</div>
+<div className="link-list">
+  <a className="link-item" href="?path=/docs/web-docs-test--page"> 
+    <span>
+      <strong>Test your project</strong>
+      Test your project with Cypress
+    </span>
+  </a> 
+</div>

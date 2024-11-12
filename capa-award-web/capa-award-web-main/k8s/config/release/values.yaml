@@ -1,0 +1,112 @@
+#@data/values
+---
+env:
+  sandbox:
+    enabled: False
+    #! 5m (5 minutes), 8h (8 hours), 7d (7 days), or 2w (2 weeks).
+    janitor:
+      ttl: 2w
+  name: release
+  hostname: 'capaawards-frontend.staging-xapps.dev'
+  cluster:
+    issuer: 'letsencrypt-staging'
+  certificate:
+    secret: tls-capaawards-frontend
+  argocd:
+    repoURL: git@gitlab.com:x-apps-projetos/global-manifests.git
+    targetRevision: HEAD
+    path: ./capaawards-frontend/manifests/release/.
+    slack:
+      notification:
+        enabled: False
+        name: equipe-capaawards      
+
+app:
+  version: '1.0.0'
+  replicas: 1
+  resources:
+    cpu: 1000m
+    memory: 1Gi
+    ephemeral_storage: 200Mi
+  
+  deployment:
+    name: capaawards-frontend
+    namespace: projetos
+    image: 'DYNAMIC'
+    security: False
+    pull:
+      secret:
+        image:
+          enabled: True
+          name: docker-registry
+    container:
+      port: 80
+      target:
+        port: 80
+
+  affinity:
+    pod_anti_affinity:
+      enabled: True
+    node_affinity:
+      enabled: False
+      preference: node-lifecycle
+      spot:
+        weight: 70
+      od:
+        weight: 30
+  
+  ingress:
+    istio: 
+      enabled: False
+      inject:
+        deployment: False
+      gateway: istio-system/public-gateway
+      match:
+        uri:
+          prefix: /
+      retries:
+        attempts: 5
+      perTryTimeout: 30s
+      retryOn: 5xx,gateway-error,connect-failure,refused-stream,reset,resource-exhausted,unavailable,cancelled
+    nginx:
+      enabled: True
+    kong:
+      enabled: False
+
+  #! Recomendations: https://github.com/zegl/kube-score/blob/master/README_PROBES.md
+  readiness:
+    enabled: True
+    initial:
+      delay:
+        seconds: 10
+    period:
+      seconds: 10
+    timeout:
+      seconds: 5
+    failure:
+      threshold: 3
+    httpGet:
+      port: 80
+      path: /
+
+  #! Recomendations: https://github.com/zegl/kube-score/blob/master/README_PROBES.md
+  liveness:
+    enabled: True
+    initial:
+      delay:
+        seconds: 10
+    period:
+      seconds: 10
+    timeout:
+      seconds: 5
+    failure:
+      threshold: 3
+    httpGet:
+      port: 80
+      path: /
+
+  configmap:
+    name: capaawards-frontend
+
+  secret:
+    name: capaawards-frontend      

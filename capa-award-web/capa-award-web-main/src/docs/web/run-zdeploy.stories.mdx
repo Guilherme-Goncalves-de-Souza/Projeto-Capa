@@ -1,0 +1,40 @@
+import { Meta } from '@storybook/addon-docs';
+import { storybookStyles } from './styles' 
+
+<Meta title="Web/Docs/Deploy" />
+
+<style>
+  { storybookStyles }
+</style>
+
+# Deploy your project to CI
+ 
+<div className="subheading">On root folder in your application</div>
+
+Run with `yarn`
+```sh
+    yarn build
+```
+
+Or run with `npm`
+```sh
+    npm run build
+```
+
+### then 
+- your `static html` will be generated on `dist` folder
+- commit your code on `develop` branch
+- merge your code on `release` branch
+- watch your publication on `team channel` on `Slack`
+
+
+
+<div className="subheading">Next Step</div>
+<div className="link-list">
+  <a className="link-item" href="?path=/docs/web-docs-desktop--page" > 
+    <span>
+      <strong>Desktop</strong>
+      Build your project to run on Desktop
+    </span>
+  </a>
+</div>

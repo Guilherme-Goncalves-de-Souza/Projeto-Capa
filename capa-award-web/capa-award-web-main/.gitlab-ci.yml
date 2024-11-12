@@ -1,0 +1,10 @@
+---
+variables:
+  REGISTRY_URL: registry.gitlab.com/x-apps-projetos
+  APPLICATION: capaawards-frontend
+
+include:
+  - project: x-apps-projetos/devops
+    ref: master
+    file: devops-gke-gitlab-ci.yaml
+    

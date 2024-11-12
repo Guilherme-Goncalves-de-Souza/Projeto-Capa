@@ -1,0 +1,12 @@
+FROM node:lts-alpine
+
+RUN npm install -g serve
+
+WORKDIR /app
+
+COPY . .
+
+RUN yarn && yarn build
+
+EXPOSE 80
+CMD [ "serve", "-s", "dist", "-l", "80" ]

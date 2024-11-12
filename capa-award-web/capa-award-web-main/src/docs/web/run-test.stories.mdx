@@ -1,0 +1,47 @@
+import { Meta } from '@storybook/addon-docs';
+import { storybookStyles } from './styles' 
+
+import cypress from './assets/cypress.gif'
+
+<Meta title="Web/Docs/Test" />
+
+<style>
+  { storybookStyles }
+</style>
+
+# Run test with Cypress
+ 
+<div className="subheading">On root folder in your application</div>
+
+Run with `yarn`
+```sh
+    yarn test
+```
+
+Or run with `npm`
+```sh
+    npm run test
+```
+
+### an browser instance will be open at
+```sh
+    localhost:8080
+```
+
+<img src={cypress} />
+
+<div className="subheading">Next Step</div>
+<div className="link-list">
+  <a className="link-item" href="?path=/docs/web-docs-documentation--page"> 
+    <span>
+      <strong>Storybook Documentation</strong>
+      Add documentation to your custom Components
+    </span>
+  </a> 
+  <a className="link-item" href="https://docs.cypress.io/guides/getting-started/writing-your-first-test#Write-your-first-test" > 
+    <span>
+      <strong>Learn more about Cypress</strong>
+      Cypress documentation
+    </span>
+  </a>
+</div>

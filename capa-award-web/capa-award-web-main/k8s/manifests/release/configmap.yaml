@@ -1,0 +1,11 @@
+#@ load("@ytt:data", "data")
+#@ load("helpers.lib.yaml", "namespace", "labels", "configmap_annotations")
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: #@ data.values.app.configmap.name
+  namespace: #@ namespace()
+  labels: #@ labels("app")
+data: 
+  NODE_ENV: production

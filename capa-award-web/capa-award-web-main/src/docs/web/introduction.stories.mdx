@@ -1,0 +1,143 @@
+import { Meta } from '@storybook/addon-docs';
+import { storybookStyles } from './styles' 
+
+<Meta title="Web/Introduction" />
+
+<style>
+  { storybookStyles }
+</style>
+
+# Welcome to X Storybook
+
+This Storybook was created to document the components delivered by AppGen, as well as document the main processes related to using the project. Also serving as an example of documentation that can be delivered to frontend projects.
+
+
+<div className="subheading">Docs</div>
+
+<div className="link-list">
+  <a className="link-item" href="?path=/docs/web-docs-install--page"> 
+    <span>
+      <strong>Install dependencies</strong>
+      Easy setup for Project dependencies
+    </span>
+  </a>
+  <a className="link-item" href="?path=/docs/web-docs-run--page"> 
+    <span>
+      <strong>Running Project</strong>
+      Run your project in development mode
+    </span>
+  </a>
+  <a className="link-item" href="?path=/docs/web-docs-storybook--page"> 
+    <span>
+      <strong>Storybook Documentation</strong>
+      Add documentation to your custom Components
+    </span>
+  </a> 
+  <a className="link-item" href="?path=/docs/web-docs-test--page"> 
+    <span>
+      <strong>Test your project</strong>
+      Test your project with Cypress
+    </span>
+  </a> 
+  <a className="link-item" href="?path=/docs/web-docs-deploy--page"> 
+    <span>
+      <strong>Deploy your project</strong>
+      Build your project to run on CI
+    </span>
+  </a>
+  <a className="link-item" href="?path=/docs/web-docs-desktop--page" > 
+    <span>
+      <strong>Desktop</strong>
+      Build your project to run on Desktop
+    </span>
+  </a>
+</div>
+
+ 
+<div className="tip-wrapper">
+  <span className="tip">Note</span>Use node{' '}
+  <code>14+</code>
+</div>
+
+
+
+
+
+
+<div className="subheading">Components</div>
+
+<div className="link-list">
+  {
+    [
+      { title:'Button', ref:'button' },
+      { title:'Check', ref:'check' },
+      { title:'Input', ref:'input' },
+      { title:'Radio', ref:'radio' },
+      { title:'Rating', ref:'rating' },
+      { title:'Select', ref:'select' },
+      { title:'Slider', ref:'slider' },
+      { title:'Toggle', ref:'toggle' }
+    ].map((item, key) =>
+      <a className="link-item" href={`?path=/docs/web-components-${ item.ref }--default`}> 
+        <span>
+          <strong>{ item.title }</strong>
+          Default <b>{ item.title }</b> of application
+        </span>
+      </a> 
+    )
+  } 
+</div>
+
+ 
+
+
+
+<div className="subheading">Guides</div>
+
+<div className="link-list">
+  <a className="link-item" href="https://mui.com/pt/material-ui/react-autocomplete/"> 
+    <span>
+      <strong>MUI</strong>
+      Our components are based on <b>Material UI (MUI)</b> design system, so if you want to create a custom component, maybe you like see MUI documentation
+    </span>
+  </a>  
+  <a className="link-item" href="https://storybook.js.org/docs/react/get-started/whats-a-story" > 
+    <span>
+      <strong>Learn more about Storybook</strong>
+      Storybook documentation
+    </span>
+  </a>
+  <a className="link-item" href="https://docs.cypress.io/guides/getting-started/writing-your-first-test#Write-your-first-test" > 
+    <span>
+      <strong>Learn more about Cypress</strong>
+      Cypress documentation
+    </span>
+  </a>
+  <a className="link-item" href="https://www.electronjs.org/pt/docs/latest/tutorial/examples" > 
+    <span>
+      <strong>Learn more about Electron</strong>
+      Building Multiplataform Desktop Apps
+    </span>
+  </a>
+</div>
+
+
+
+
+
+
+
+<!-- // Build on iOS
+// - create or login expo account
+// - select archive
+// - create or login on apple account
+// - send p12
+// - send p8
+// - send provisioning profile
+// - wait build on expo cloud
+
+
+// Build on iOS
+// -  -->
+
+

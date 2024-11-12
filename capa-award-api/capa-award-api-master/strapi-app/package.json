@@ -1,0 +1,52 @@
+{
+  "name": "strapi-app",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Api application",
+  "scripts": {
+    "develop": "strapi develop",
+    "start": "strapi start",
+    "build": "strapi build",
+    "strapi": "strapi",
+    "debug": "strapi develop --watch-admin"
+  },
+  "devDependencies": {
+    "any-text": "^1.2.0"
+  },
+  "dependencies": {
+    "axios": "^0.21.1",
+    "fs": "^0.0.1-security",
+    "http": "^0.0.1-security",
+    "https": "^1.0.0",
+    "knex": "0.21.18",
+    "lodash": "^4.17.21",
+    "markdown-it": "^13.0.1",
+    "mysql": "^2.18.1",
+    "strapi": "3.6.3",
+    "strapi-admin": "3.6.3",
+    "strapi-connector-bookshelf": "3.6.3",
+    "strapi-plugin-content-manager": "3.6.3",
+    "strapi-plugin-content-type-builder": "3.6.3",
+    "strapi-plugin-email": "3.6.3",
+    "strapi-plugin-i18n": "3.6.3",
+    "strapi-plugin-upload": "3.6.3",
+    "strapi-plugin-users-permissions": "3.6.3",
+    "strapi-provider-email-mailtrap": "^3.5.0",
+    "strapi-provider-email-nodemailer": "^3.6.11",
+    "strapi-provider-upload-aws-s3": "^3.6.10",
+    "strapi-utils": "3.6.3",
+    "stripe": "^10.17.0",
+    "styled-components": "^5.3.3"
+  },
+  "author": {
+    "name": "Xapps developer"
+  },
+  "strapi": {
+    "uuid": "9c9633cf-e60f-4bad-9dfd-d56baca5659d"
+  },
+  "engines": {
+    "node": ">=10.16.0 <=14.x.x",
+    "npm": "^6.0.0"
+  },
+  "license": "MIT"
+}
