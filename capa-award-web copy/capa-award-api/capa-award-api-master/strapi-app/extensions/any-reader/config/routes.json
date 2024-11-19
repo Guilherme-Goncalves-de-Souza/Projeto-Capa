@@ -1,0 +1,14 @@
+{
+    "routes": [  
+        {
+            "method": "POST",
+            "path": "/v1/any-reader",
+            "handler": "AnyReader.read",
+            "config": {
+                "policies": [],
+                "prefix": "",
+                "description": "Read ( DOC, DOCX, DOT, PDF, CSV, TXT, XLS, XLSX ) formats and insert this text inside article"
+            }
+        } 
+    ]
+}

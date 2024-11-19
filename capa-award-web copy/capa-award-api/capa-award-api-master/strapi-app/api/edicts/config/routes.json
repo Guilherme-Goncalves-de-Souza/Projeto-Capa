@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/edicts",
+      "handler": "edicts.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/edicts/count",
+      "handler": "edicts.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/edicts/:id",
+      "handler": "edicts.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/edicts",
+      "handler": "edicts.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/edicts/:id",
+      "handler": "edicts.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/edicts/:id",
+      "handler": "edicts.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}
