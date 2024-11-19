@@ -1,8 +1,0 @@
-.DS_Store
-.git
-.gitattributes
-.travis.yml
-README.md
-docker-compose.yml
-.history
-node_modules/
