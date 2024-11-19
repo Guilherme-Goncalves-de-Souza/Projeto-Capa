@@ -1,0 +1,34 @@
+{
+  "kind": "collectionType",
+  "collectionName": "chats",
+  "info": {
+    "name": "chats",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "user": {
+      "plugin": "users-permissions",
+      "model": "user"
+    },
+    "sender": {
+      "plugin": "users-permissions",
+      "model": "user"
+    },
+    "message": {
+      "type": "text"
+    },
+    "read": {
+      "type": "boolean",
+      "default": false
+    },
+    "article": {
+      "model": "article"
+    }
+  }
+}
