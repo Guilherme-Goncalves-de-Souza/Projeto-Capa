@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  api:
+    build: .
+    image: strapi/template
+    container_name: strapi_template
+    ports:
+      - 80:1337
+    volumes:
+      - ./strapi-app:/srv/app
+    restart: always

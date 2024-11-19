@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/written-groups",
+      "handler": "written-group.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/written-groups/count",
+      "handler": "written-group.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/written-groups/:id",
+      "handler": "written-group.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/written-groups",
+      "handler": "written-group.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/written-groups/:id",
+      "handler": "written-group.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/written-groups/:id",
+      "handler": "written-group.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

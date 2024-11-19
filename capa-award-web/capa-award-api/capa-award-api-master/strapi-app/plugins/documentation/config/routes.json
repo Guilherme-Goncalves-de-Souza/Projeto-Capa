@@ -1,0 +1,12 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/",
+      "handler": "documentation.index",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

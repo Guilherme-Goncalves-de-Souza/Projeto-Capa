@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/advice-pages",
+      "handler": "advice-page.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/advice-pages/count",
+      "handler": "advice-page.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/advice-pages/:id",
+      "handler": "advice-page.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/advice-pages",
+      "handler": "advice-page.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/advice-pages/:id",
+      "handler": "advice-page.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/advice-pages/:id",
+      "handler": "advice-page.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}
