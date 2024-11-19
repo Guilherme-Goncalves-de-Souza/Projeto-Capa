@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "PUT",
+      "path": "/update",
+      "handler": "user.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/me",
+      "handler": "user.me",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/update-password",
+      "handler": "user.updatePassword",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/register",
+      "handler": "user.register",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/login",
+      "handler": "user.login",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/redirect/new-password",
+      "handler": "user.redirectDeepLink",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}
