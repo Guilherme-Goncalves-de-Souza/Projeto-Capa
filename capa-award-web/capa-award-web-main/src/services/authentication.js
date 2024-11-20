@@ -1,38 +1,28 @@
 import { GET, POST } from "./api";
 import { ReadObject, SaveObject } from "./storage";
 
-const BASE_ENDPOINT = "http://localhost:1337"; // Todos os métodos aqui usarão esse endpoint fixo.
-
 /**
  * Cadastro de usuário no banco central.
  */
 export const DoRegister = async (params) => {
-  return await POST(`${BASE_ENDPOINT}/users`, params);
+  const response = await POST("/users", params, false, params.institution);
+
+  return response;
 };
 
 /**
  * Login de usuário com verificação no banco da instituição.
  */
 export const DoLogin = async (params) => {
-  const response = await POST(`${BASE_ENDPOINT}/auth/local`, params);
-
+  const response = await POST(
+    "/auth/local",
+    { identifier: params.identifier, password: params.password },
+    false,
+    params.institution
+  );
   if (response?.jwt) {
     await SaveObject("authentication", response);
-    const universitySigla = response?.institution;
-    sessionStorage.setItem("universitySigla", universitySigla);
-    if (universitySigla) {
-      const userResponse = await GET(`/users/me`, true, universitySigla);
-
-      if (userResponse?.confirmed) {
-        return response;
-      } else {
-        await SaveObject("authentication", {});
-        sessionStorage.removeItem("universitySigla");
-        return { error: true, message: "Usuário não confirmado na instituição." };
-      }
-    } else {
-      return { error: true, message: "Instituição não encontrada." };
-    }
+    sessionStorage.setItem("universitySigla", response.user.institution);
   }
   return response;
 };
@@ -41,7 +31,7 @@ export const DoLogin = async (params) => {
  * Logout de usuário.
  */
 export const DoLogout = async () => {
-  await SaveObject("authentication", {}); 
+  await SaveObject("authentication", {});
   sessionStorage.removeItem("universitySigla");
   return true;
 };
@@ -50,14 +40,14 @@ export const DoLogout = async () => {
  * Solicitação de redefinição de senha (envio de email).
  */
 export const DoForgotPassword = async (params) => {
-  return await POST(`${BASE_ENDPOINT}/auth/forgot-password`, params);
+  return await POST(`/auth/forgot-password`, params);
 };
 
 /**
  * Redefinição de senha com token recebido por email.
  */
 export const DoResetPassword = async (params) => {
-  return await POST(`${BASE_ENDPOINT}/auth/reset-password`, params);
+  return await POST(`/auth/reset-password`, params);
 };
 
 /**

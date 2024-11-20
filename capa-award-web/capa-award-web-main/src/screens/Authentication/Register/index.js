@@ -1,7 +1,6 @@
 import React, { useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
-
 import { FormTitle, FormText, FormSpacer, RegisterCall, CheckTerms } from "./styled";
 import Button from "components/Form/Button";
 import Input from "components/Form/Input";
@@ -12,7 +11,10 @@ import Check from "components/Form/Check";
 import { isEmail } from "utils/validation";
 import { CoreContext } from "context/CoreContext";
 import { SendRegistrationConfirmationEmail } from "services/email";
-import { Dropdown } from "primereact/dropdown"; // Importe o Dropdown do PrimeReact
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import InputLabel from "@mui/material/InputLabel";
 
 export default function Register() {
   const history = useHistory();
@@ -28,7 +30,7 @@ export default function Register() {
     { label: "UEM - Universidade Estadual de Maringá", value: "UEM" },
     { label: "UNICENTRO - Universidade Estadual do Centro-Oeste", value: "UNICENTRO" },
     { label: "UNIOESTE - Universidade Estadual do Oeste do Paraná", value: "UNIOESTE" },
-    { label: "UNESPAR - Universidade Estadual do Paraná", value: "UNSESPAR" },
+    { label: "UNESPAR - Universidade Estadual do Paraná", value: "UNESPAR" },
     { label: "UFPR - Universidade Federal do Paraná", value: "UFPR" },
     { label: "UEPG - Universidade Estadual de Ponta Grossa", value: "UEPG" },
   ];
@@ -107,11 +109,10 @@ export default function Register() {
       blocked: false,
       institution: form.institution,
     });
-
-    setLoading(false);
     if (result && !exposeStrapiError(result)) {
       try {
         await SendRegistrationConfirmationEmail(result.email, result.institution);
+        setLoading(false);
       } catch (error) {
         toast.error("Erro ao registrar conta. Tente novamente mais tarde.");
       }
@@ -144,13 +145,22 @@ export default function Register() {
           onChange={(e) => changeForm(e.target.value, "email")}
         />
         <FormSpacer />
-        <Dropdown
-          value={formValue("institution")}
-          options={institutions}
-          onChange={(e) => changeForm(e.value, "institution")}
-          optionLabel="label"
-          placeholder="Selecione a Instituição"
-        />
+        <FormControl fullWidth>
+          <InputLabel id="institution-select-label">Selecione a Instituição</InputLabel>
+          <Select
+            labelId="institution-select-label"
+            id="institution-select"
+            value={formValue("institution")}
+            onChange={(e) => changeForm(e.target.value, "institution")}
+            label="Selecione a Instituição"
+          >
+            {institutions.map((institution) => (
+              <MenuItem key={institution.value} value={institution.value}>
+                {institution.label}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
         <FormSpacer />
         <Input
           placeholder="Senha"

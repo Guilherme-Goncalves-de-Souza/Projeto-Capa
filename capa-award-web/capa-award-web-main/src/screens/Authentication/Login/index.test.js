@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from '@cypress/react';
-import Page from './';
+import Page from '.';
 
 it('Test case - Login page', () => {
   

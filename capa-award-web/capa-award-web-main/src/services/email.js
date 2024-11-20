@@ -7,10 +7,9 @@ import { POST } from "./api";
  */
 export const SendRegistrationConfirmationEmail = async (email, institution) => {
   try {
-    const response = await POST(`/${institution}/auth/send-email-confirmation`, { email });
+    const response = await POST(`/auth/send-email-confirmation`, { email }, false, institution);
     return response;
   } catch (error) {
-    console.error(`Erro ao enviar email de confirmação para ${institution}:`, error);
     throw error;
   }
 };
@@ -22,7 +21,7 @@ export const SendRegistrationConfirmationEmail = async (email, institution) => {
  */
 export const SendForgotPasswordEmail = async (email, institution) => {
   try {
-    const response = await POST(`/${institution}/auth/forgot-password`, { email });
+    const response = await POST(`/auth/forgot-password`, { email }, false, institution);
     return response;
   } catch (error) {
     console.error(`Erro ao enviar email de recuperação de senha para ${institution}:`, error);

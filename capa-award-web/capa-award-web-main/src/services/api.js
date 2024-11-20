@@ -1,32 +1,33 @@
 import { ReadObject, SaveObject } from "./storage";
 
 const ENDPOINTS = {
-  localhost: "http://localhost:1337", // Painel padrão (banco centralizado)
+  localhost: "http://localhost:1337",
   "setipr.net.br": "https://award_api.setipr.net.br",
-  UFPR: "http://localhost:1340", // Universidade Federal do Paraná
-  UEM: "http://localhost:1339", // Universidade Estadual de Maringá
-  UEL: "http://localhost:1338", // Universidade Estadual de Londrina
+  UFPR: "http://localhost:1340",
+  UEM: "http://localhost:1339",
+  UEL: "http://localhost:1338",
 };
 
 /**
- * Retorna o endpoint apropriado com base na sigla da universidade ou no domínio atual.
- * A prioridade é da universidade salva na `session` após login.
- * Caso `localhost` seja passado explicitamente, ele será usado como padrão.
+ * Retorna o endpoint apropriado com base no domínio atual ou na sigla da universidade.
+ * A prioridade é do domínio específico.
  */
-const envEndpoint = (universitySigla = "") => {
-  if (universitySigla && ENDPOINTS[universitySigla]) {
-    return ENDPOINTS[universitySigla];
+const envEndpoint = (universitySigla) => {
+  const currentOrigin = window.location.origin;
+  const siglaFromSession = universitySigla || sessionStorage.getItem("universitySigla");
+
+  if (siglaFromSession && ENDPOINTS[siglaFromSession]) {
+    return ENDPOINTS[siglaFromSession];
   }
 
-  return (
-    Object.keys(ENDPOINTS)
-      .filter((fit) => `${window.location.origin}`.indexOf(fit) !== -1)
-      .map((key) => ENDPOINTS[key])[0] || ENDPOINTS["localhost"]
-  );
+  return ENDPOINTS["localhost"];
 };
 
 export const API_ENDPOINT = envEndpoint();
 
+/**
+ * Define o endpoint do frontend
+ */
 export const FRONTEND_ENDPOINT = "https://award.setipr.net.br/";
 
 /**
@@ -48,55 +49,62 @@ export const GetHeaders = async (authenticated) => {
  * Função genérica para realizar fetch ao servidor.
  * Ajusta o endpoint dinamicamente com base na sigla da universidade.
  */
-export const ServerFetch = async (url, options, authenticated = false, universitySigla = "") => {
-  const apiEndpoint = envEndpoint(universitySigla); // Escolhe o endpoint correto
+export const ServerFetch = async (url, options, authenticated = false, universitySigla) => {
+  const apiEndpoint = envEndpoint(universitySigla);
+
   const { headers } = await GetHeaders(authenticated);
 
   try {
     const response = await fetch(`${apiEndpoint}${url}`, { ...options, headers });
 
     if (response.status === 403 && authenticated) {
-      // Se o token estiver inválido, remove do armazenamento local.
       await SaveObject("authentication", {});
     }
 
+    if (!response.ok) {
+      return { error: true, message: `Erro no servidor: ${response.statusText}` };
+    }
+
     try {
-      return await response.json();
+      const jsonResponse = await response.json();
+      return jsonResponse;
     } catch (err) {
-      console.error("Erro ao parsear resposta do servidor:", err);
-      return { error: true, message: response };
+      return { error: true, message: "Erro ao parsear a resposta." };
     }
   } catch (error) {
-    console.error("Erro no ServerFetch:", error);
-    return false;
+    return { error: true, message: "Erro na requisição." };
   }
 };
 
 /**
  * Métodos de requisição HTTP (GET, POST, PUT, DELETE).
  */
-export const GET = async (path, authenticated = false, universitySigla = "") =>
-  await ServerFetch(path, { method: "GET" }, authenticated, universitySigla);
+export const GET = async (path, authenticated = false, universitySigla) => {
+  return await ServerFetch(path, { method: "GET" }, authenticated, universitySigla);
+};
 
-export const POST = async (path, body, authenticated = false, universitySigla = "") =>
-  await ServerFetch(
+export const POST = async (path, body, authenticated = false, universitySigla) => {
+  const result = await ServerFetch(
     path,
     { method: "POST", body: JSON.stringify(body) },
     authenticated,
     universitySigla
   );
+  return result;
+};
 
-export const PUT = async (path, body, authenticated = false, universitySigla = "") =>
-  await ServerFetch(
+export const PUT = async (path, body, authenticated = false, universitySigla) => {
+  return await ServerFetch(
     path,
     { method: "PUT", body: JSON.stringify(body) },
     authenticated,
     universitySigla
   );
+};
 
-export const DELETE = async (path, authenticated = false, universitySigla = "") =>
-  await ServerFetch(path, { method: "DELETE" }, authenticated, universitySigla);
-
+export const DELETE = async (path, authenticated = false, universitySigla) => {
+  return await ServerFetch(path, { method: "DELETE" }, authenticated, universitySigla);
+};
 /**
  * Busca endereços via CEP.
  */
