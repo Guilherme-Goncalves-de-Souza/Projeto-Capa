@@ -1,69 +1,76 @@
-import React, { useState } from "react"; 
-import { useHistory } from 'react-router-dom';
-import { toast } from 'react-toastify';
+import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
+import { toast } from "react-toastify";
 
+import { FormTitle, FormText, FormSpacer } from "./styled";
 
-import { 
-    FormTitle,
-    FormText,
-    FormSpacer 
-} from './styled'
- 
 import Button from "components/Form/Button";
-import Input from 'components/Form/Input'
+import Input from "components/Form/Input";
 
 import ContainerUnauthenticated from "containers/Unauthenticated";
-import { DoForgotPassword } from "services/authentication";
-import { exposeStrapiError } from "utils";
+import { isEmail } from "utils/validation";
+import { SendForgotPasswordEmail } from "services/email";
 
-export default function Forgot(){ 
-    const history = useHistory();
-    const navigate = to => history.push(`/${ to }`);
+export default function Forgot() {
+  const history = useHistory();
+  const navigate = (to) => history.push(`/${to}`);
 
-    const [ loading, setLoading ] = useState(false) 
-    
-    const [ form, setForm ] = useState({})
-    const formValue = ref => { return form?.[ref] ? form?.[ref] : '' ;}
-    const changeForm = ( value, ref ) => { setForm({ ...form, [ref]: value }) ;} 
+  const [loading, setLoading] = useState(false);
+  const [form, setForm] = useState({});
 
-    const valid = (verbose = false) => {  
-              
-        if(!formValue('email') || !formValue('email').length){ 
-            if(verbose){ toast.error('Preencha o campo: Email') ;}
-            return false; 
-        }   
+  const formValue = (ref) => form?.[ref] || "";
+  const changeForm = (value, ref) => setForm({ ...form, [ref]: value });
 
-        return true
-    } 
-
-    const action = async () => {
-        if(!valid(true)){ return ;}
-        setLoading(true)
-        
-        const result = await DoForgotPassword({ email:formValue('email')?.replace(/ /g,'') })   
-        
-        setLoading(false)
-        if(result && !exposeStrapiError(result)){
-            completNext()
-        } 
+  const valid = (verbose = false) => {
+    if (!formValue("email") || !formValue("email").length) {
+      if (verbose) toast.error("Preencha o campo: Email");
+      return false;
     }
 
-    const completNext = () => {
-        toast.success('Instruções para recuperar senha foram enviadas ao seu email'); 
-        navigate('login')
-    } 
+    if (!isEmail(formValue("email"))) {
+      if (verbose) toast.error("Insira um email válido");
+      return false;
+    }
 
- 
-    return ( 
-        <>  
-            <ContainerUnauthenticated> 
-                <FormTitle>Recuperar senha</FormTitle>
-                <FormText>Informe o email cadastrado</FormText> 
-                <Input placeholder="Email" id={'email'} value={formValue('email')} onChange={e => changeForm(e.target.value, 'email')}  /> 
-                <FormSpacer />
-                <Button primary small loading={loading} onClick={action} >Prosseguir</Button> 
-                {/* <Button primary outline onClick={() => history.goBack()}>Voltar</Button>   */}
-            </ContainerUnauthenticated> 
-        </>
-    );
+    return true;
+  };
+
+  const action = async () => {
+    if (!valid(true)) return;
+
+    setLoading(true);
+    try {
+      await SendForgotPasswordEmail(formValue("email")?.trim());
+      toast.success("Instruções para recuperação de senha foram enviadas ao seu e-mail");
+      completNext();
+    } catch (error) {
+      toast.error("Erro ao enviar e-mail de recuperação. Tente novamente mais tarde.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const completNext = () => {
+    navigate("login");
+  };
+
+  return (
+    <>
+      <ContainerUnauthenticated>
+        <FormTitle>Recuperar senha</FormTitle>
+        <FormText>Informe o email cadastrado</FormText>
+        <Input
+          placeholder="Email"
+          id="email"
+          value={formValue("email")}
+          onChange={(e) => changeForm(e.target.value, "email")}
+        />
+        <FormSpacer />
+        <Button primary small loading={loading} onClick={action}>
+          Prosseguir
+        </Button>
+        {/* <Button primary outline onClick={() => history.goBack()}>Voltar</Button> */}
+      </ContainerUnauthenticated>
+    </>
+  );
 }

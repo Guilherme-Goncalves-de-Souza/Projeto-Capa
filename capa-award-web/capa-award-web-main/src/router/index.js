@@ -77,7 +77,7 @@ export default function AppRouter() {
             <Route path="/login" exact> <Login /> </Route> 
             <Route path="/register" exact> <Register /> </Route> 
             <Route path="/forgot" exact> <Forgot /> </Route> 
-            <Route path="/create-password" exact> <CreatePassword /> </Route> 
+            <Route path="/reset-password" exact> <CreatePassword /> </Route> 
             
             <Route path="/dashboard" exact> <DashboardHome /> </Route> 
             <Route path="/activities" exact> <DashboardHome /> </Route> 
