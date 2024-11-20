@@ -105,13 +105,13 @@ export default function Register() {
       email: form.email?.replace(/ /g, ""),
       phone: "",
       blocked: false,
-      institution: form.institution, // Enviar a sigla da instituição
+      institution: form.institution,
     });
 
     setLoading(false);
     if (result && !exposeStrapiError(result)) {
       try {
-        await SendRegistrationConfirmationEmail(result.email);
+        await SendRegistrationConfirmationEmail(result.email, result.institution);
       } catch (error) {
         toast.error("Erro ao registrar conta. Tente novamente mais tarde.");
       }
