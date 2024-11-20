@@ -1,8 +1,8 @@
 {
-  "name": "strapi-app-uem",
+  "name": "strapi-app-uel",
   "private": true,
   "version": "0.1.0",
-  "description": "Api application to UEM",
+  "description": "Api application to UEL",
   "scripts": {
     "develop": "strapi develop",
     "start": "strapi start",
