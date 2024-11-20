@@ -1,11 +1,4 @@
 module.exports = ({ env }) => {
-  // Logando as variáveis de ambiente
-  console.log("DATABASE_HOST_UEL:", env("DATABASE_HOST_UEL"));
-  console.log("DATABASE_PORT_UEL:", env("DATABASE_PORT_UEL"));
-  console.log("DATABASE_DB_UEL:", env("DATABASE_DB_UEL"));
-  console.log("DATABASE_USERNAME_UEL:", env("DATABASE_USERNAME_UEL"));
-  console.log("DATABASE_PASSWORD_UEL:", env("DATABASE_PASSWORD_UEL"));
-
   return {
     defaultConnection: "default",
     connections: {
@@ -25,9 +18,9 @@ module.exports = ({ env }) => {
           pool: {
             min: 2,
             max: 20,
-            idleTimeoutMillis: 60000,
-            createTimeoutMillis: 60000,
-            acquireTimeoutMillis: 60000,
+            idleTimeoutMillis: 30000,
+            createTimeoutMillis: 30000,
+            acquireTimeoutMillis: 30000,
           },
         },
       },
