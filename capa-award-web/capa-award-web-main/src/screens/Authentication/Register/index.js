@@ -3,10 +3,8 @@ import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import { FormTitle, FormText, FormSpacer, RegisterCall, CheckTerms } from "./styled";
-
 import Button from "components/Form/Button";
-import Input, { MaskedInput } from "components/Form/Input";
-
+import Input from "components/Form/Input";
 import ContainerUnauthenticated from "containers/Unauthenticated";
 import { DoRegister } from "services/authentication";
 import { exposeStrapiError } from "utils";
@@ -14,6 +12,7 @@ import Check from "components/Form/Check";
 import { isEmail } from "utils/validation";
 import { CoreContext } from "context/CoreContext";
 import { SendRegistrationConfirmationEmail } from "services/email";
+import { Dropdown } from "primereact/dropdown"; // Importe o Dropdown do PrimeReact
 
 export default function Register() {
   const history = useHistory();
@@ -21,11 +20,23 @@ export default function Register() {
 
   const { setModal } = useContext(CoreContext);
   const [loading, setLoading] = useState(false);
-
   const [form, setForm] = useState({});
+
+  const institutions = [
+    { label: "UEL - Universidade Estadual de Londrina", value: "UEL" },
+    { label: "UENP - Universidade Estadual do Norte do Paraná", value: "UENP" },
+    { label: "UEM - Universidade Estadual de Maringá", value: "UEM" },
+    { label: "UNICENTRO - Universidade Estadual do Centro-Oeste", value: "UNICENTRO" },
+    { label: "UNIOESTE - Universidade Estadual do Oeste do Paraná", value: "UNIOESTE" },
+    { label: "UNESPAR - Universidade Estadual do Paraná", value: "UNSESPAR" },
+    { label: "UFPR - Universidade Federal do Paraná", value: "UFPR" },
+    { label: "UEPG - Universidade Estadual de Ponta Grossa", value: "UEPG" },
+  ];
+
   const formValue = (ref) => {
     return form?.[ref] ? form?.[ref] : "";
   };
+
   const changeForm = (value, ref) => {
     setForm({ ...form, [ref]: value });
   };
@@ -72,6 +83,13 @@ export default function Register() {
       return false;
     }
 
+    if (!formValue("institution")) {
+      if (verbose) {
+        toast.error("Selecione a instituição");
+      }
+      return false;
+    }
+
     return true;
   };
 
@@ -87,6 +105,7 @@ export default function Register() {
       email: form.email?.replace(/ /g, ""),
       phone: "",
       blocked: false,
+      institution: form.institution, // Enviar a sigla da instituição
     });
 
     setLoading(false);
@@ -125,8 +144,14 @@ export default function Register() {
           onChange={(e) => changeForm(e.target.value, "email")}
         />
         <FormSpacer />
-        {/* <MaskedInput mask={"(99) 99999-9999"} placeholder="Telefone" id={'phone'} value={formValue('phone')} onChange={e => changeForm(e.target.value, 'phone')} /> 
-                <FormSpacer /> */}
+        <Dropdown
+          value={formValue("institution")}
+          options={institutions}
+          onChange={(e) => changeForm(e.value, "institution")}
+          optionLabel="label"
+          placeholder="Selecione a Instituição"
+        />
+        <FormSpacer />
         <Input
           placeholder="Senha"
           id={"password"}
@@ -149,16 +174,14 @@ export default function Register() {
           onChange={(e) => changeForm(e, "terms")}
         />
         <CheckTerms>
-          {" "}
           os <a onClick={() => setModal({ type: "terms" })}>Termos de uso</a> e{" "}
-          <a onClick={() => setModal({ type: "privacity-policy" })}>políticas de privacidade</a>{" "}
+          <a onClick={() => setModal({ type: "privacity-policy" })}>políticas de privacidade</a>
         </CheckTerms>
         <FormSpacer />
+
         <Button primary small loading={loading} onClick={action}>
           Criar conta
         </Button>
-        {/* <RegisterCall> Já possui uma conta? </RegisterCall>
-                <Button primary outline onClick={() => navigate('login')}>Faça o login</Button>  */}
       </ContainerUnauthenticated>
     </>
   );

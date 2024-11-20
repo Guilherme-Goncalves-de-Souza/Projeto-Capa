@@ -22,7 +22,7 @@ const Login = ({ children, formErrors, modifiedData, onChange, onSubmit, request
       </Section>
       <Section withBackground>
         <BaselineAlignment top size="25px">
-          <Box errorMessage={get(requestError, 'errorMessage', null)}>
+          <Box errorMessage={get(requestError, "errorMessage", null)}>
             <form onSubmit={onSubmit}>
               <Input
                 autoFocus
@@ -46,14 +46,24 @@ const Login = ({ children, formErrors, modifiedData, onChange, onSubmit, request
               />
               <Checkbox
                 type="checkbox"
-                message={formatMessage({ id: 'Auth.form.rememberMe.label' })}
+                message={formatMessage({ id: "Auth.form.rememberMe.label" })}
                 name="rememberMe"
                 onChange={onChange}
                 value={modifiedData.rememberMe}
               />
               <BaselineAlignment top size="27px">
                 <Button type="submit" color="primary" textTransform="uppercase">
-                  {formatMessage({ id: 'Auth.form.button.login' })}
+                  {formatMessage({ id: "Auth.form.button.login" })}
+                </Button>
+                <Button
+                  type="button"
+                  color="secondary"
+                  textTransform="capitalize"
+                  onClick={() =>
+                    (window.location.href = "http://localhost:5173")
+                  }
+                >
+                  Selecionar outro painel
                 </Button>
               </BaselineAlignment>
             </form>

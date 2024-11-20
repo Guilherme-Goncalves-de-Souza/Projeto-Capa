@@ -55,6 +55,14 @@ const Login = ({ children, formErrors, modifiedData, onChange, onSubmit, request
                 <Button type="submit" color="primary" textTransform="uppercase">
                   {formatMessage({ id: 'Auth.form.button.login' })}
                 </Button>
+                <Button
+                  type="button"
+                  color="secondary"
+                  textTransform="capitalize"
+                  onClick={() => window.location.href = 'http://localhost:5173'}
+                >
+                  Selecionar outro painel
+                </Button>
               </BaselineAlignment>
             </form>
             {children}
