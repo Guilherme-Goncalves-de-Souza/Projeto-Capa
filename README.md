@@ -25,16 +25,27 @@ node -v
 ```
 Caso esteja em uma versão diferente você pode alterar da seguinte forma:
 
-- Linux
+- Linux e Mac
   - Instale o nvm 
     ```bash 
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.0/install.sh
     ```
-  - Intale o node 
+  - Instale o node 
     ```bash 
     nvm install 14
     ```
-  - Agora só torcar para a verso 14
+  - Agora só trocar para a versão 14
+    ```bash
+    nvm use 14
+    ```
+
+- Windows
+  - Baixe e instale o nvm para Windows a partir do [repositório oficial](https://github.com/coreybutler/nvm-windows/releases).
+  - Instale o node
+    ```bash
+    nvm install 14
+    ```
+  - Agora só trocar para a versão 14
     ```bash
     nvm use 14
     ```
