@@ -62,7 +62,7 @@ const HomePage = () => {
             <Block>
               <h2>Olá, {upperFirst(username)}!</h2>
               <p>
-                Você está no painel da UEL - Universidade Estadual de Londrina.
+                Você está no painel da UNICENTRO - Universidade Estadual do Centro-Oeste.
               </p>
               <hr />
               <h3 style={{ margin: "1rem 0" }}>Visão Geral</h3>

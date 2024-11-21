@@ -48,13 +48,22 @@
         "policies": []
       }
     },
-     {
-       "method": "GET",
-       "path": "/fetch-by-email",
-       "handler": "user.fetchUserByEmail",
-       "config": {
-         "policies": []
-       }
-     }
+    {
+      "method": "GET",
+      "path": "/fetch-by-email",
+      "handler": "user.fetchUserByEmail",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/homepage-data",
+      "handler": "user.getHomepageData",
+      "config": {
+        "policies": [],
+        "auth": false
+      }
+    }
   ]
 }
