@@ -36,8 +36,8 @@
     "status": {
       "type": "string"
     },
-    "instituition": {
-      "model": "instituitions"
+    "user": {
+      "type": "integer"
     }
   }
 }

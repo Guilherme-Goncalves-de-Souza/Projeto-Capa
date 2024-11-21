@@ -47,6 +47,14 @@
       "config": {
         "policies": []
       }
-    }
+    },
+     {
+       "method": "GET",
+       "path": "/fetch-by-email",
+       "handler": "user.fetchUserByEmail",
+       "config": {
+         "policies": []
+       }
+     }
   ]
 }

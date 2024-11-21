@@ -15,9 +15,6 @@
     "name": {
       "type": "string"
     },
-    "instituition": {
-      "model": "instituitions"
-    },
     "coordinator": {
       "plugin": "users-permissions",
       "model": "user"
