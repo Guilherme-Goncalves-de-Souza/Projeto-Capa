@@ -33,7 +33,8 @@ export const DoLogin = async (params) => {
  */
 export const DoLogout = async () => {
   await SaveObject("authentication", {});
-  sessionStorage.removeItem("universitySigla");
+  await SaveObject("universitySigla", {});
+  await SaveObject("user", {});
   return true;
 };
 

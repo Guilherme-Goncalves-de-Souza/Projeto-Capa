@@ -82,9 +82,9 @@ export default function Login() {
       ...form,
       identifier: form.identifier?.replace(/ /g, ""),
     });
+    setLoading(false);
     if (result && !exposeStrapiError(result)) {
       completeLogin(result.user);
-      setLoading(false);
     }
   };
 
