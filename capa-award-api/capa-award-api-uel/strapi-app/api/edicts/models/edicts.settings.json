@@ -35,9 +35,6 @@
     },
     "status": {
       "type": "string"
-    },
-    "instituition": {
-      "model": "instituitions"
     }
   }
 }

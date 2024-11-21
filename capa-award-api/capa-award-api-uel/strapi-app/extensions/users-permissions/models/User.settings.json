@@ -27,7 +27,7 @@
       "type": "string",
       "configurable": false
     },
-    "institution":{
+    "institution": {
       "type": "string",
       "required": true
     },
@@ -113,10 +113,10 @@
     "access_level": {
       "type": "enumeration",
       "enum": [
-        "coordinator",
-        "advisor",
-        "author",
-        "reviewer"
+        "Coordenador",
+        "Bolsista administrativo",
+        "Bolsistas revisor/tradutor",
+        "Autor"
       ]
     }
   }
