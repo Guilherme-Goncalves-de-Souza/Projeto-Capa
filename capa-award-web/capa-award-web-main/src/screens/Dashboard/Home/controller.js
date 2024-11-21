@@ -19,7 +19,7 @@ export default function useController(){
         setLoading(false)
     }
 
-    useEffect(() => { init() ;}, [])
+    useEffect(() => { init() ;}, [user])
 
     return {
         loading,

@@ -26,7 +26,6 @@ export default function useController(){
     const [register, setRegister] = useState(null) 
     
     const [credtis, setCredits] = useState([]) 
-    const [instituitions, setIntituitions] = useState([]) 
     const [sectors, setSectors] = useState([]) 
     const [model, setModel] = useState([]) 
 
@@ -61,24 +60,31 @@ export default function useController(){
 
     const initData = async () => { 
         const resultCredits = await ReadCredits()
-        const resultInstituitions = await ReadInstitutions()
         const resultSectors = await ReadSectors()
         const resultModels = await ReadModels()
         
-        if(resultCredits){ setCredits(resultCredits?.map( mm => ({ ...mm, title: mm?.name }) )) ;}
-        if(resultInstituitions){ setIntituitions(resultInstituitions?.map( mm => ({ ...mm, title: mm?.name }) )) ;}
-        if(resultSectors){ setSectors(resultSectors?.map( mm => ({ ...mm, title: mm?.name }) )) ;}
-        if(resultModels){ setModel(resultModels?.find( ff => ff.type === 'knowledgementTerm' )) ; }
+        if(Array.isArray(resultCredits)){ 
+            setCredits(resultCredits.map(mm => ({ ...mm, title: mm?.name }))); 
+        }
+        if(Array.isArray(resultSectors)){ 
+            setSectors(resultSectors.map(mm => ({ ...mm, title: mm?.name }))); 
+        }
+        if(resultModels){ 
+            setModel(resultModels.find(ff => ff.type === 'knowledgementTerm')); 
+        }
     }
- 
 
     const save = async () => {
         setLoading(true)
 
-        // console.log('openedFile', openedFile?.result)
-        
+        // Validação dos campos obrigatórios do autor
+        if (!form?.name || !form?.email || !form?.orcid || !form?.ppg || !form?.institution?.id || !form?.credit?.id || !form?.area?.id) {
+            toast.error("Todos os campos do autor são obrigatórios, exceto coauthors.");
+            setLoading(false);
+            return;
+        }
+
         const payload = {
-            // ...form,
             tag: `${ ( form?.tag?.length ? [ ...(form?.tags || []), form?.tag ] : [ ...(form?.tags || []) ] ).join(',') }`,
             image: form?.image?.id ? form?.image?.id : null,
             user: user?.id,
@@ -108,10 +114,8 @@ export default function useController(){
             status: "in_screening",
             edict: edict_id,
             title: `${ file?.name || "" }`.split('.')?.[0],
-            // text: `${ openedFile?.result || "" }`?.replace(/\n/g, "")
         }
 
-        
         const result = id ? await Update(payload, id) : await Create(payload)
         if(result && !exposeStrapiError(result)){
             await sleep(1000);
@@ -147,7 +151,6 @@ export default function useController(){
 
         sectors,
         credtis,
-        instituitions,
         coauthors,
 
         addCoAuthor,
@@ -159,5 +162,3 @@ export default function useController(){
 
     };
 }
-
-

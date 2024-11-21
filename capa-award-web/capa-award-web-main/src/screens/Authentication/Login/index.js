@@ -1,7 +1,15 @@
 import React, { useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
-import { FormTitle, FormText, FormSpacer, RegisterCall, CheckTerms, RegisterForgot, ForgotLink } from "./styled";
+import {
+  FormTitle,
+  FormText,
+  FormSpacer,
+  RegisterCall,
+  CheckTerms,
+  RegisterForgot,
+  ForgotLink,
+} from "./styled";
 import Button from "components/Form/Button";
 import Input from "components/Form/Input";
 import ContainerUnauthenticated from "containers/Unauthenticated";
@@ -74,15 +82,15 @@ export default function Login() {
       ...form,
       identifier: form.identifier?.replace(/ /g, ""),
     });
-    setLoading(false);
     if (result && !exposeStrapiError(result)) {
-      completeLogin(result);
+      completeLogin(result.user);
+      setLoading(false);
     }
   };
 
   const completeLogin = (result) => {
     setUser(result);
-    window.location.href = "/dashboard";
+    navigate("dashboard");
   };
 
   return (

@@ -71,7 +71,6 @@ export default function DashboardEdictForm(){
     }, [ form ])
 
     const changeArticle = useCallback( f =>  {
-        console.log("setFile", f )
         setFile( f )
     }, [ form ])
 
@@ -93,9 +92,9 @@ export default function DashboardEdictForm(){
                                 <EdictItem> 
                                     <Input placeholder="Nome autor principal"  value={formValue('name')} onChange={e => changeForm(e.target.value, 'name')} />
                                 </EdictItem> 
-                                <EdictItem> 
+                                {/* <EdictItem> 
                                     <Select placeholder="Instituição" options={instituitions} value={formValue('institution')} onChange={val => changeForm(val, 'institution')} />
-                                </EdictItem> 
+                                </EdictItem>  */}
                                 <EdictItem> 
                                     <Select placeholder="CRediT" options={credtis}  value={formValue('credit')} onChange={val => changeForm(val, 'credit')} />
                                 </EdictItem>

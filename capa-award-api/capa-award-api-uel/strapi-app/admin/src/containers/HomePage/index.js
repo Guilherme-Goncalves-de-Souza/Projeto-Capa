@@ -6,11 +6,10 @@
 /* eslint-disable */
 import React, { memo, useEffect, useState } from "react";
 import { FormattedMessage } from "react-intl";
-import { get, upperFirst } from "lodash";
+import { upperFirst } from "lodash";
 import { auth, LoadingIndicatorPage } from "strapi-helper-plugin";
 import PageTitle from "../../components/PageTitle";
 import { Container, Block } from "./components";
-
 
 const HomePage = () => {
   const [userCounts, setUserCounts] = useState({});
@@ -21,28 +20,23 @@ const HomePage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const userInfo = auth.getUserInfo();
+        const response = await fetch("/admin/homepage-data", {
+          headers: {
+            Authorization: `Bearer ${auth.getToken()}`,
+          },
+        });
 
-        const usersResponse = await fetch("/users-permissions/users");
-        const users = await usersResponse.json();
+        if (!response.ok) {
+          throw new Error("Erro ao buscar dados internos");
+        }
 
-        const userAccessCounts = users.reduce((acc, user) => {
-          const accessLevel = user.access_level || "Desconhecido";
-          acc[accessLevel] = (acc[accessLevel] || 0) + 1;
-          return acc;
-        }, {});
+        const data = await response.json();
 
-        setUserCounts(userAccessCounts);
-
-        const articlesResponse = await fetch("/articles/count");
-        const articleCountData = await articlesResponse.json();
-        setArticleCount(articleCountData);
-
-        const edictsResponse = await fetch("/edicts/count");
-        const edictCountData = await edictsResponse.json();
-        setEdictCount(edictCountData);
+        setUserCounts(data.userCounts);
+        setArticleCount(data.articleCount);
+        setEdictCount(data.edictCount);
       } catch (error) {
-        console.error("Erro ao buscar dados:", error);
+        console.error("Erro ao buscar dados internos:", error);
       } finally {
         setIsLoading(false);
       }
@@ -55,7 +49,7 @@ const HomePage = () => {
     return <LoadingIndicatorPage />;
   }
 
-  const username = get(auth.getUserInfo(), "firstname", "Usuário");
+  const username = auth.getUserInfo()?.firstname || "Usuário";
 
   return (
     <>
@@ -108,10 +102,6 @@ const HomePage = () => {
 };
 
 export default memo(HomePage);
-
-
-
-
 
 /*
   <FormattedMessage id="HomePage.helmet.title">
