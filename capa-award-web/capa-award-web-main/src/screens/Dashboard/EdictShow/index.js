@@ -52,13 +52,22 @@ import { Load, LoadCenter } from "ui/styled";
 import useController from "./controller";
 import { parseStrapiImage } from "utils";
 import moment from "moment/moment";
+import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Button as MuiButton,
+} from '@mui/material';
 
 export default function DashboardEdictShow() {
   const history = useHistory();
-  const { loading, register, chats, sentMessage, notifyAll } = useController();
+  const { loading, register, chats, sentMessage, notifyAll, updateStatus } = useController();
 
   const [message, setMessage] = useState("");
   const [fileUrl, setFileUrl] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     if (register?.file?.url) {
@@ -71,6 +80,11 @@ export default function DashboardEdictShow() {
     sentMessage(message);
     setMessage("");
     notifyAll();
+  };
+
+  const handleStatusChange = (status) => {
+    updateStatus(status);
+    setIsModalOpen(false);
   };
 
   return (
@@ -98,6 +112,11 @@ export default function DashboardEdictShow() {
                       </Button>
                     </ActionsContainerEnd>
                   ) : null}
+                  <ActionsContainerEnd>
+                    <Button primary nospace onClick={() => setIsModalOpen(true)}>
+                      Alterar Status
+                    </Button>
+                  </ActionsContainerEnd>
                   <ActionsContainerEnd>
                     <Button primary nospace onClick={() => history.goBack()}>
                       Voltar
@@ -176,6 +195,26 @@ export default function DashboardEdictShow() {
           </Col>
         </Row>
       </ContainerAuthenticated>
+
+      <Dialog open={isModalOpen} onClose={() => setIsModalOpen(false)}>
+        <DialogTitle>Alterar Status do Artigo</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Selecione o novo status para o artigo.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <MuiButton onClick={() => handleStatusChange('accepted')} color="primary">
+            Aceito
+          </MuiButton>
+          <MuiButton onClick={() => handleStatusChange('not_contemplated')} color="primary">
+            Não Contemplado
+          </MuiButton>
+          <MuiButton onClick={() => setIsModalOpen(false)} color="secondary">
+            Cancelar
+          </MuiButton>
+        </DialogActions>
+      </Dialog>
     </>
   );
 }

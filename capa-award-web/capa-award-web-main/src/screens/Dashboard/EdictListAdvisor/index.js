@@ -88,11 +88,11 @@ export default function DashboardEdictListAdvisor(){
                                 <ActionsContainerEnd>
                                     {
                                         user?.isAdmin || user?.access_level === 'Coordenador' ? 
-                                        <Button primary nospace onClick={() => navigate('activities/create/edicts')}>Novo edital</Button>
+                                        <Button primary nospace onClick={() => window.location.href = '/activities/create/edicts'}>Novo edital</Button>
                                             :
                                         null
                                     }
-                                    <Button primary nospace onClick={() => history.goBack()}>Voltar</Button>
+                                    <Button primary nospace onClick={() => history.back()}>Voltar</Button>
                                 </ActionsContainerEnd>
                             </ActionsEnd>
                             <DashboardTitle centred>Editais</DashboardTitle>
