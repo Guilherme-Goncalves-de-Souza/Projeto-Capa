@@ -227,6 +227,7 @@ module.exports = {
         payload["blocked"] = false;
         payload["confirmed"] = true;
         payload["password"] = await bcrypt.hash(data.password, 10);
+        payload["access_level"] = "Autor"; 
 
         let user = await strapi
           .query("user", "users-permissions")
@@ -248,6 +249,7 @@ module.exports = {
         body["blocked"] = false;
         body["confirmed"] = true;
         body["password"] = await bcrypt.hash(body.password, 10);
+        body["access_level"] = "Autor"; 
 
         let user = await strapi.query("user", "users-permissions").create(body);
         const jwtToken = strapi.plugins["users-permissions"].services.jwt.issue(
