@@ -20,7 +20,7 @@ const HomePage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("/admin/homepage-data", {
+        const response = await fetch("/homepage-data", {
           headers: {
             Authorization: `Bearer ${auth.getToken()}`,
           },

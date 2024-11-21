@@ -18,16 +18,17 @@ module.exports = ({ env }) => ({
       defaultReplyTo: env("MAIL_DEFAULT_REPLY_TO"),
     },
   },
-  // upload: {
-  //   provider: "aws-s3",
-  //   providerOptions: {
-  //     accessKeyId: env('S3_AWS_ACCESS_KEY'),
-  //     secretAccessKey: env('S3_AWS_ACCESS_SECRET'),
-  //     region: env('S3_AWS_REGION'),
-  //     params: {
-  //       Bucket: env('S3_AWS_BUCKET_NAME')
-  //     },
-  //     logger: console
-  //   }
-  // }
+  upload: {
+    provider: "aws-s3",
+    providerOptions: {
+      accessKeyId: env("S3_AWS_ACCESS_KEY"),
+      secretAccessKey: env("S3_AWS_ACCESS_SECRET"),
+      region: env("S3_AWS_REGION"),
+      params: {
+        Bucket: env("S3_AWS_BUCKET_NAME"),
+      },
+      sizeLimit: 5 * 1024 * 1024,
+      logger: console,
+    },
+  },
 });
