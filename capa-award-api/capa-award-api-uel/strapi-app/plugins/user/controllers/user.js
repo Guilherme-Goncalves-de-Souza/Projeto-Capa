@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 /**
  * user.js controller
@@ -6,48 +6,43 @@
  * @description: A set of functions called "actions" of the `user` plugin.
  */
 
-const bcrypt = require('bcryptjs');
+const bcrypt = require("bcryptjs");
 // const { sanitizeEntity } = require('strapi-utils');
-const { parseMultipartData, sanitizeEntity } = require('strapi-utils');
-const _ = require('lodash');
+const { parseMultipartData, sanitizeEntity } = require("strapi-utils");
+const _ = require("lodash");
 
-
-
-const sanitizeUser = user =>
-    sanitizeEntity(user, {
-        model: strapi.query('user', 'users-permissions').model,
-    });
+const sanitizeUser = (user) =>
+  sanitizeEntity(user, {
+    model: strapi.query("user", "users-permissions").model,
+  });
 
 const IsExistColumn = async (data) => {
-    let user =  await strapi.query('user', 'users-permissions')
-        .findOne(data);      
+  let user = await strapi.query("user", "users-permissions").findOne(data);
 
-    if(user !== null) {
-        return {"result": true, value: `${data.name} duplicate`}
-    }
-    return {"result": false, value: `${data.name} not exist`}
-}
+  if (user !== null) {
+    return { result: true, value: `${data.name} duplicate` };
+  }
+  return { result: false, value: `${data.name} not exist` };
+};
 
 const AddFiles = async (data) => {
-    try {
-        let resultData = await strapi.plugins.upload.services.upload.upload({
-            data:{},
-            files: {
-                path: data.path, 
-                name: data.name,
-                type: data.type,
-                size: data.size,
-            },
-        });
+  try {
+    let resultData = await strapi.plugins.upload.services.upload.upload({
+      data: {},
+      files: {
+        path: data.path,
+        name: data.name,
+        type: data.type,
+        size: data.size,
+      },
+    });
 
-        return resultData[0].id;
-
-    } catch (error) {
-        console.log(error);
-        return false;
-    }
-}
-
+    return resultData[0].id;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+};
 
 module.exports = {
   /**
@@ -87,14 +82,13 @@ module.exports = {
         if (!_.isEmpty(files)) {
           var images = {};
 
-          if (files.avatarImage) {
-            let isValid = await AddFiles(files.avatarImage);
-
+          if (files.avatar) {
+            let isValid = await AddFiles(files.avatar);
+            console.log("Upload result:", isValid);
             if (isValid === false) {
-              return ctx.notFound("error in avatarImage");
+              return ctx.notFound("error in avatar");
             }
-
-            images["avatarImage"] = isValid;
+            images["avatar"] = isValid;
           }
 
           response = await strapi
@@ -227,7 +221,7 @@ module.exports = {
         payload["blocked"] = false;
         payload["confirmed"] = true;
         payload["password"] = await bcrypt.hash(data.password, 10);
-        payload["access_level"] = "Autor"; 
+        payload["access_level"] = "Autor";
 
         let user = await strapi
           .query("user", "users-permissions")
@@ -249,7 +243,7 @@ module.exports = {
         body["blocked"] = false;
         body["confirmed"] = true;
         body["password"] = await bcrypt.hash(body.password, 10);
-        body["access_level"] = "Autor"; 
+        body["access_level"] = "Autor";
 
         let user = await strapi.query("user", "users-permissions").create(body);
         const jwtToken = strapi.plugins["users-permissions"].services.jwt.issue(
