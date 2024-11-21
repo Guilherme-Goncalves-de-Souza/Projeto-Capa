@@ -41,7 +41,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "PORT=5181 react-scripts start",
+    "start": "react-scripts start",
     "build": "react-scripts build && rm -rf dist && mv build dist",
     "test": "npx cypress open-ct",
     "eject": "react-scripts eject",
