@@ -17,6 +17,26 @@ function App() {
       name: "UEL - Universidade Estadual de Londrina",
       url: "http://localhost:1338/admin/auth/login",
     },
+    {
+      name: "UEPG - Universidade Estadual de Ponta Grossa",
+      url: "http://localhost:1341/admin/auth/login",
+    },
+    {
+      name: "Unioeste - Universidade Estadual do Oeste do Paraná",
+      url: "http://localhost:1342/admin/auth/login",
+    },
+    {
+      name: "Unicentro - Universidade Estadual do Centro-Oeste",
+      url: "http://localhost:1343/admin/auth/login",
+    },
+    {
+      name: "UENP - Universidade Estadual do Norte do Paraná",
+      url: "http://localhost:1344/admin/auth/login",
+    },
+    {
+      name: "Unespar - Universidade Estadual do Paraná",
+      url: "http://localhost:1345/admin/auth/login",
+    },
     { name: "Painel Padrão", url: "http://localhost:1337/admin/auth/login" },
   ];
 

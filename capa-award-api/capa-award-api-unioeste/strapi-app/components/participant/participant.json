@@ -1,0 +1,30 @@
+{
+  "collectionName": "components_participant_participants",
+  "info": {
+    "name": "participant",
+    "icon": "child",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "level": {
+      "type": "string"
+    },
+    "year": {
+      "type": "string"
+    },
+    "isModerator": {
+      "type": "boolean"
+    },
+    "user": {
+      "plugin": "users-permissions",
+      "model": "user"
+    },
+    "accepted": {
+      "type": "boolean"
+    }
+  }
+}

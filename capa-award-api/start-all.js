@@ -29,6 +29,36 @@ const concurrently = require("concurrently");
           prefixColor: "cyan",
         },
         { command: "npm run dev", cwd: "middleware", name: "middleware", prefixColor: "magenta" },
+        {
+          command: "npm run develop",
+          cwd: "capa-award-api-unespar/strapi-app",
+          name: "unespar",
+          prefixColor: "red",
+        },
+        {
+          command: "npm run develop",
+          cwd: "capa-award-api-uenp/strapi-app",
+          name: "uenp",
+          prefixColor: "orange",
+        },
+        {
+          command: "npm run develop",
+          cwd: "capa-award-api-uepg/strapi-app",
+          name: "uepg",
+          prefixColor: "purple",
+        },
+        {
+          command: "npm run develop",
+          cwd: "capa-award-api-unicentro/strapi-app",
+          name: "unicentro",
+          prefixColor: "brown",
+        },
+        {
+          command: "npm run develop",
+          cwd: "capa-award-api-unioeste/strapi-app",
+          name: "unioeste",
+          prefixColor: "pink",
+        },
       ],
       {
         killOthers: ["failure", "success"],

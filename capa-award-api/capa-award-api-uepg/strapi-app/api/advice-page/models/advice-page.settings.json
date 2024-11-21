@@ -1,0 +1,64 @@
+{
+  "kind": "collectionType",
+  "collectionName": "advice_pages",
+  "info": {
+    "name": "Advice page",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "user": {
+      "plugin": "users-permissions",
+      "model": "user"
+    },
+    "date": {
+      "type": "date"
+    },
+    "local": {
+      "type": "string"
+    },
+    "virtualUFPR": {
+      "type": "string"
+    },
+    "faceToFaceIFPR": {
+      "type": "string"
+    },
+    "virtualUEPG": {
+      "type": "string"
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "customer",
+        "absent",
+        "cancelled",
+        "performed",
+        "scheduled"
+      ]
+    },
+    "email": {
+      "type": "string"
+    },
+    "advice": {
+      "plugin": "users-permissions",
+      "model": "user"
+    },
+    "article": {
+      "model": "article"
+    },
+    "hour": {
+      "type": "time"
+    },
+    "reason": {
+      "type": "text"
+    }
+  }
+}

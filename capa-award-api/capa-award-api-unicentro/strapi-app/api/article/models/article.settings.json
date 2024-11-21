@@ -1,0 +1,98 @@
+{
+  "kind": "collectionType",
+  "collectionName": "articles",
+  "info": {
+    "name": "article",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "users": {
+      "plugin": "users-permissions",
+      "collection": "user"
+    },
+    "chats": {
+      "collection": "chats"
+    },
+    "edict": {
+      "model": "edicts"
+    },
+    "text": {
+      "type": "text"
+    },
+    "file": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "plugin": "upload",
+      "required": false,
+      "pluginOptions": {}
+    },
+    "type": {
+      "type": "string"
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "accepted",
+        "not_contemplated",
+        "in_screening"
+      ]
+    },
+    "isCertified": {
+      "type": "boolean",
+      "default": false
+    },
+    "numberWords": {
+      "type": "biginteger",
+      "default": "0"
+    },
+    "font": {
+      "type": "string"
+    },
+    "user": {
+      "plugin": "users-permissions",
+      "model": "user"
+    },
+    "author": {
+      "type": "component",
+      "repeatable": false,
+      "component": "author.author"
+    },
+    "coauthors": {
+      "type": "component",
+      "repeatable": true,
+      "component": "author.author"
+    },
+    "knownledgementTerm": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "plugin": "upload",
+      "required": false,
+      "pluginOptions": {}
+    },
+    "published": {
+      "type": "boolean"
+    },
+    "groups": {
+      "collection": "groups"
+    }
+  }
+}

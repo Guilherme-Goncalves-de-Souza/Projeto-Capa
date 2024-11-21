@@ -1,0 +1,35 @@
+{
+  "collectionName": "components_author_authors",
+  "info": {
+    "name": "author",
+    "icon": "user-edit",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "credit": {
+      "model": "credit"
+    },
+    "sector": {
+      "model": "sectors"
+    },
+    "orcid": {
+      "type": "string"
+    },
+    "ppg": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "isAdvisor": {
+      "type": "boolean"
+    },
+    "level": {
+      "type": "string"
+    }
+  }
+}

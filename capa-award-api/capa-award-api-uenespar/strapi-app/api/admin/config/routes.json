@@ -1,0 +1,13 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/homepage-data",
+      "handler": "admin.homepageData",
+      "config": {
+        "policies": ["admin::isAuthenticatedAdmin"],
+        "auth": false
+      }
+    }
+  ]
+}
