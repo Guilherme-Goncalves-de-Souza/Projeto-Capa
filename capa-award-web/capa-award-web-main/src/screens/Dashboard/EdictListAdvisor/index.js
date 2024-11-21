@@ -52,11 +52,10 @@ export default function DashboardEdictListAdvisor(){
 
     const columns = [
         { title:'Edital', ref:'edict' },
-        { title:'Instituição', ref:'instituition' },
         !user?.isAdmin ? null : { title:'Status', ref:'status' },
         { 
             title: 'Ações', 
-            renderCell: ({ row }) => !row?.id ? null : <>
+            renderCell: ({ row }) => !row?.id ? null : (
                 <ContentTableAction> 
                     {
                         user?.isAdmin ? 
@@ -69,20 +68,15 @@ export default function DashboardEdictListAdvisor(){
                             </Button> 
                     }
                 </ContentTableAction>
-            </>
+            )
         },
     ].filter(ff => ff)
     
+    const filteredRegisters = user?.isAdmin ? registers : registers.filter(register => register.user === user.id);
+
     const rows = [
-        // { edict:'Edital exemplo', instituition:'Instituição exemplo', status:'Aberto', id:1 },
-        ...registers
+        ...filteredRegisters
     ]
-
-
-    const filterReports = fit => {
-        // return !filterReportOptions || fit?.vwEstrutura?.id === filterReportOptions
-        return true
-    }
 
     return ( 
         <>
@@ -93,12 +87,11 @@ export default function DashboardEdictListAdvisor(){
                             <ActionsEnd>
                                 <ActionsContainerEnd>
                                     {
-                                        user?.isAdmin ? 
+                                        user?.isAdmin || user?.access_level === 'Coordenador' ? 
                                         <Button primary nospace onClick={() => navigate('activities/create/edicts')}>Novo edital</Button>
                                             :
                                         null
                                     }
-                                        {/* <Button primary nospace onClick={() => null}>Relatórios</Button> */}
                                     <Button primary nospace onClick={() => history.goBack()}>Voltar</Button>
                                 </ActionsContainerEnd>
                             </ActionsEnd>

@@ -35,6 +35,9 @@
     },
     "status": {
       "type": "string"
+    },
+    "user": {
+      "type": "integer"
     }
   }
 }

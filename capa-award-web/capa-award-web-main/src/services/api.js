@@ -14,7 +14,7 @@ const ENDPOINTS = {
  */
 const envEndpoint = (universitySigla) => {
   const currentOrigin = window.location.origin;
-  const siglaFromSession = universitySigla || sessionStorage.getItem("universitySigla");
+  const siglaFromSession = universitySigla || ReadObject("universitySigla");
 
   if (siglaFromSession && ENDPOINTS[siglaFromSession]) {
     return ENDPOINTS[siglaFromSession];

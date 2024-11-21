@@ -74,7 +74,7 @@ export default function DashboardEdictList(){
                 </ContentTableAction>
             </>  
         },
-    ] : user?.isAdvisor ?  [
+    ] : user?.access_level === 'Coordenador' ?  [
         { title:'Artigo', ref:'article' },
         { title:'Edital', ref:'edict' },
         { title:'Autor', ref:'author' },

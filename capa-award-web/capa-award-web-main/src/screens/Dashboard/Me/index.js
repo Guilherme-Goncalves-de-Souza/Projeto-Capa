@@ -42,7 +42,6 @@ export default function DashboardMe(){
 
     const takePic = async (result) => { 
         setFetching(true)  
-        console.log(result)
         if(result?.id){
             await UpdateMe({ image: result.id })
             setPreview( parseStrapiImage(result?.url) )

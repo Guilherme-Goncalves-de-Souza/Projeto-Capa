@@ -117,7 +117,7 @@ export default function AppRouter() {
             <Route path="/admin/news/:id/create" exact> <DashboardAdminNewsForm /> </Route> 
 
             <Route path="/dashboard/admin" exact> <DashboardHomeChart /> </Route> 
-            <Route path="/dashboard/Me" exact> <DashboardMe /> </Route> 
+            <Route path="/dashboard/me" exact> <DashboardMe /> </Route> 
             
             <Route path="*" exact> <NotFound /> </Route>
           </Switch>

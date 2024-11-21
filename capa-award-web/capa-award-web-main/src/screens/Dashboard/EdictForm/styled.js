@@ -187,6 +187,7 @@ export const ContentFileUploaded = styled.div.attrs({
 export const ContentFileUploadedRemove = styled.img.attrs({ 
     src: '/icons/close.svg'
 })`
+    width: 24px;
     cursor: pointer;
     transition: all .3s ease;
     &:hover{
