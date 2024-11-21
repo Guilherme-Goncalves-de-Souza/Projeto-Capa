@@ -82,7 +82,7 @@ export default function Login() {
 
   const completeLogin = (result) => {
     setUser(result);
-    navigate("dashboard");
+    window.location.href = "/dashboard";
   };
 
   return (

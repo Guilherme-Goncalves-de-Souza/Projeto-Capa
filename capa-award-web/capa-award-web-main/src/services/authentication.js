@@ -24,6 +24,7 @@ export const DoLogin = async (params) => {
     await SaveObject("authentication", response);
     sessionStorage.setItem("universitySigla", response.user.institution);
   }
+  await SaveObject("user", response.user);
   return response;
 };
 

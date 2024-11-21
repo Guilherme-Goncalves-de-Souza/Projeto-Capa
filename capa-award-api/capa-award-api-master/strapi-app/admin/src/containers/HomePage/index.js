@@ -11,20 +11,8 @@ import { auth, LoadingIndicatorPage } from "strapi-helper-plugin";
 import PageTitle from "../../components/PageTitle";
 import { Container, Block } from "./components";
 
-const UNIVERSITY_MAP = {
-  UEL: "UEL - Universidade Estadual de Londrina",
-  UENP: "UENP - Universidade Estadual do Norte do Paraná",
-  UEM: "UEM - Universidade Estadual de Maringá",
-  UNICENTRO: "UNICENTRO - Universidade Estadual do Centro-Oeste",
-  UNIOESTE: "UNIOESTE - Universidade Estadual do Oeste do Paraná",
-  UNESPAR: "UNESPAR - Universidade Estadual do Paraná",
-  UFPR: "UFPR - Universidade Federal do Paraná",
-  UEPG: "UEPG - Universidade Estadual de Ponta Grossa",
-};
-
 const HomePage = () => {
   const [userCounts, setUserCounts] = useState({});
-  const [institutionName, setInstitutionName] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [articleCount, setArticleCount] = useState(0);
   const [edictCount, setEdictCount] = useState(0);
@@ -33,10 +21,6 @@ const HomePage = () => {
     const fetchData = async () => {
       try {
         const userInfo = auth.getUserInfo();
-        const institution = userInfo?.institution || "Desconhecida";
-        const fullInstitutionName = UNIVERSITY_MAP[institution] || institution;
-
-        setInstitutionName(fullInstitutionName);
 
         const usersResponse = await fetch("/users-permissions/users");
         const users = await usersResponse.json();
@@ -82,34 +66,17 @@ const HomePage = () => {
           <div className="col-12">
             <Block>
               <h2>Olá, {upperFirst(username)}!</h2>
-              <p>Você está no painel da {institutionName}.</p>
+              <p>
+                Você está no painel Geral.
+              </p>
               <hr />
-              <h3>Visão Geral</h3>
+              <h3 style={{ margin: "1rem 0" }}>Visão Geral</h3>
 
-              <h4>Artigos e Editais</h4>
-              <ul>
+              <h4 style={{ marginBottom: "1rem" }}>Artigos e Editais</h4>
+              <ul style={{ marginBottom: "1rem" }}>
                 <li>Quantidade de artigos postados: {articleCount}</li>
                 <li>Quantidade de editais criados: {edictCount}</li>
               </ul>
-
-              <hr />
-              <h4>Usuários por Tipo de Acesso</h4>
-              <table className="table">
-                <thead>
-                  <tr>
-                    <th>Tipo de Acesso</th>
-                    <th>Quantidade</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {Object.entries(userCounts).map(([level, count]) => (
-                    <tr key={level}>
-                      <td>{level}</td>
-                      <td>{count}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
             </Block>
           </div>
         </div>
@@ -119,6 +86,7 @@ const HomePage = () => {
 };
 
 export default memo(HomePage);
+
 
 
 

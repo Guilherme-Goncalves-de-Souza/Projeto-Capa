@@ -29,8 +29,6 @@ export default function ContainerLandpage({ children, sided }){
 
     const { user } = useContext(CoreContext)
 
-    console.log('landuser', user)
-
     const sideOptions = [
         !user ? null : { 
             title:'Atividades', 

@@ -108,6 +108,7 @@ export default function Register() {
       phone: "",
       blocked: false,
       institution: form.institution,
+      access_level: "Autor",
     });
     if (result && !exposeStrapiError(result)) {
       try {
