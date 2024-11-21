@@ -27,6 +27,10 @@
       "type": "string",
       "configurable": false
     },
+    "institution": {
+      "type": "string",
+      "required": true
+    },
     "password": {
       "type": "password",
       "minLength": 6,
@@ -106,16 +110,13 @@
       "type": "boolean",
       "default": false
     },
-    "instituition": {
-      "model": "instituitions"
-    },
     "access_level": {
       "type": "enumeration",
       "enum": [
-        "coordinator",
-        "advisor",
-        "author",
-        "reviewer"
+        "Coordenador",
+        "Bolsista administrativo",
+        "Bolsistas revisor/tradutor",
+        "Autor"
       ]
     }
   }

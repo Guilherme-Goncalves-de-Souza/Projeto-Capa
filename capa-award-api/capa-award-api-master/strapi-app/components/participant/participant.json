@@ -10,9 +10,6 @@
     "name": {
       "type": "string"
     },
-    "instituition": {
-      "model": "instituitions"
-    },
     "level": {
       "type": "string"
     },

@@ -1,36 +1,67 @@
-import { GET, POST } from './api'
-import { ReadObject, SaveObject } from './storage'
+import { GET, POST } from "./api";
+import { ReadObject, SaveObject } from "./storage";
 
-export const DoRegister = async params => {
-	return await POST(`/users`, params)
-}
+/**
+ * Cadastro de usuário no banco central.
+ */
+export const DoRegister = async (params) => {
+  const response = await POST("/users", params, false, params.institution);
 
-export const DoLogin = async params => { 
-	const response = await POST(`/auth/local`, params) 
-	if (response?.jwt) {
-		await SaveObject('authentication', response)
-	}
-	return response
-}
+  return response;
+};
 
+/**
+ * Login de usuário com verificação no banco da instituição.
+ */
+export const DoLogin = async (params) => {
+  const response = await POST(
+    "/auth/local",
+    { identifier: params.identifier, password: params.password },
+    false,
+    params.institution
+  );
+  if (response?.jwt) {
+    await SaveObject("authentication", response);
+    sessionStorage.setItem("universitySigla", response.user.institution);
+  }
+  await SaveObject("user", response.user);
+  return response;
+};
+
+/**
+ * Logout de usuário.
+ */
 export const DoLogout = async () => {
-	SaveObject('authentication', {})
-	return true
-} 
-  
-export const DoForgotPassword = async params => {
-	return await POST(`/auth/forgot-password`, params)
-}
+  await SaveObject("authentication", {});
+  sessionStorage.removeItem("universitySigla");
+  return true;
+};
 
-export const DoResetPassword = async params => {
-	return await POST(`/auth/reset-password`, params)
-}
+/**
+ * Solicitação de redefinição de senha (envio de email).
+ */
+export const DoForgotPassword = async (params) => {
+  return await POST(`/auth/forgot-password`, params);
+};
 
+/**
+ * Redefinição de senha com token recebido por email.
+ */
+export const DoResetPassword = async (params) => {
+  return await POST(`/auth/reset-password`, params);
+};
+
+/**
+ * Verifica se o usuário está logado (token JWT presente e válido).
+ */
 export const IsLogged = async () => {
-	const authentication = ReadObject('authentication')
-	return authentication?.jwt
-}
+  const authentication = await ReadObject("authentication");
+  return !!authentication?.jwt;
+};
 
+/**
+ * Obtém as informações do usuário autenticado.
+ */
 export const ReadMe = async () => {
-	return await GET(`/users/me`, true)
-}  
+  return await GET(`/users/me`, true);
+};

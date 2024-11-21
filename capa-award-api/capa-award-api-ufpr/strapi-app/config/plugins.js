@@ -1,19 +1,23 @@
 module.exports = ({ env }) => ({
-  // email: {
-  //   provider: env('MAIL_PROVIDER'),
-  //   providerOptions: {
-  //     host: env('MAIL_REGION'),
-  //     port: env('MAIL_PORT'),
-  //     auth: {
-  //       user: env('MAIL_USERNAME'),
-  //       pass: env('MAIL_PASSWORD'),
-  //     },
-  //   },
-  //   settings: {
-  //     defaultFrom: env('MAIL_DEFAULT_FROM'),
-  //     defaultReplyTo: env('MAIL_DEFAULT_REPLY_TO'),
-  //   },
-  // },
+  email: {
+    provider: "nodemailer",
+    providerOptions: {
+      host: env("MAIL_HOST"),
+      port: env("MAIL_PORT"),
+      auth: {
+        user: env("MAIL_USERNAME"),
+        pass: env("MAIL_PASSWORD"),
+      },
+      secure: false,
+      tls: {
+        rejectUnauthorized: false,
+      },
+    },
+    settings: {
+      defaultFrom: env("MAIL_DEFAULT_FROM"),
+      defaultReplyTo: env("MAIL_DEFAULT_REPLY_TO"),
+    },
+  },
   // upload: {
   //   provider: "aws-s3",
   //   providerOptions: {

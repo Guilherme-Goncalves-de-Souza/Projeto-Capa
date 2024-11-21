@@ -307,7 +307,7 @@ module.exports = {
     redirectDeepLink: async (ctx) => {
         try{
             let code = ctx.query.code;
-            let url = `itson://create-password/${code}`;
+            let url = `itson://reset-password/${code}`;
            
             return ctx.redirect(url);
 
