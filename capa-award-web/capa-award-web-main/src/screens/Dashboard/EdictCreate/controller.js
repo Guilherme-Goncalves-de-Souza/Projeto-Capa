@@ -15,7 +15,6 @@ export default function useController() {
   const history = useHistory();
 
   const { user } = useContext(CoreContext);
-  console.log(user);
   const { id } = useParams();
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState({});

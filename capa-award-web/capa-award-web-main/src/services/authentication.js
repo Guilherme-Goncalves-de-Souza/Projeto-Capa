@@ -20,6 +20,7 @@ export const DoLogin = async (params) => {
     false,
     params.institution
   );
+  console.log(response);
   if (response?.jwt) {
     await SaveObject("authentication", response);
     await SaveObject("universitySigla", response.user.institution);
