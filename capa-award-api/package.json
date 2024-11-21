@@ -10,6 +10,11 @@
     "capa-award-api-uel/strapi-app",
     "capa-award-api-uem/strapi-app",
     "capa-award-api-ufpr/strapi-app",
+    "capa-award-api-uepg/strapi-app",
+    "capa-award-api-unicentro/strapi-app",
+    "capa-award-api-unioeste/strapi-app",
+    "capa-award-api-uenp/strapi-app",
+    "capa-award-api-unespar/strapi-app",
     "middleware"
   ],
   "devDependencies": {
