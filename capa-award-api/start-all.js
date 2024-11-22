@@ -1,41 +1,46 @@
 const concurrently = require("concurrently");
-const { exec } = require("child_process");
+const { spawn } = require("child_process");
+
+const runCommand = (command, args = [], options = {}, waitForExit = true) => {
+  return new Promise((resolve, reject) => {
+    const process = spawn(command, args, options);
+
+    process.stdout.on("data", (data) => {
+      console.log(`[${command}] ${data}`);
+    });
+
+    process.stderr.on("data", (data) => {
+      console.error(`[${command} ERROR] ${data}`);
+    });
+
+    // Se `waitForExit` for falso, resolve imediatamente e deixa o processo rodando em segundo plano
+    if (!waitForExit) {
+      resolve();
+      return;
+    }
+
+    process.on("close", (code) => {
+      if (code === 0) {
+        resolve();
+      } else {
+        reject(new Error(`${command} exited with code ${code}`));
+      }
+    });
+  });
+};
 
 (async () => {
   try {
-    await new Promise((resolve, reject) => {
-      exec("nvm use node", (err, stdout, stderr) => {
-        if (err) {
-          console.error(`Error switching to latest Node.js version: ${stderr}`);
-          return reject(err);
-        }
-        console.log(`Switched to latest Node.js version: ${stdout}`);
-        resolve();
-      });
-    });
+    console.log("Switching to the latest Node.js version...");
+    await runCommand("bash", ["-c", "source ~/.nvm/nvm.sh && nvm use node"]);
 
-    await new Promise((resolve, reject) => {
-      exec("npm run dev", { cwd: "middleware" }, (err, stdout, stderr) => {
-        if (err) {
-          console.error(`Error running middleware: ${stderr}`);
-          return reject(err);
-        }
-        console.log(`Middleware output: ${stdout}`);
-        resolve();
-      });
-    });
+    console.log("Starting middleware...");
+    await runCommand("npm", ["run", "dev"], { cwd: "middleware" }, false); // Não espera o middleware terminar
 
-    await new Promise((resolve, reject) => {
-      exec("nvm use 14", (err, stdout, stderr) => {
-        if (err) {
-          console.error(`Error switching to Node.js version 14: ${stderr}`);
-          return reject(err);
-        }
-        console.log(`Switched to Node.js version 14: ${stdout}`);
-        resolve();
-      });
-    });
+    console.log("Switching to Node.js version 14...");
+    await runCommand("bash", ["-c", "source ~/.nvm/nvm.sh && nvm use 14"]);
 
+    console.log("Starting Strapi apps...");
     await concurrently(
       [
         {
