@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "node start-all.js",
-    "install-all": "npm install --workspaces"
+    "install-all": "nvm use 14 && npm install --workspaces && nvm use node && cd middleware && npm install"
   },
   "workspaces": [
     "capa-award-api-master/strapi-app",
@@ -14,8 +14,7 @@
     "capa-award-api-unicentro/strapi-app",
     "capa-award-api-unioeste/strapi-app",
     "capa-award-api-uenp/strapi-app",
-    "capa-award-api-unespar/strapi-app",
-    "middleware"
+    "capa-award-api-unespar/strapi-app"
   ],
   "devDependencies": {
     "concurrently": "^8.2.0"

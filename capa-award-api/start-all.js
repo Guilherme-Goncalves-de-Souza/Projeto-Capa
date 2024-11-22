@@ -1,7 +1,41 @@
 const concurrently = require("concurrently");
+const { exec } = require("child_process");
 
 (async () => {
   try {
+    await new Promise((resolve, reject) => {
+      exec("nvm use node", (err, stdout, stderr) => {
+        if (err) {
+          console.error(`Error switching to latest Node.js version: ${stderr}`);
+          return reject(err);
+        }
+        console.log(`Switched to latest Node.js version: ${stdout}`);
+        resolve();
+      });
+    });
+
+    await new Promise((resolve, reject) => {
+      exec("npm run dev", { cwd: "middleware" }, (err, stdout, stderr) => {
+        if (err) {
+          console.error(`Error running middleware: ${stderr}`);
+          return reject(err);
+        }
+        console.log(`Middleware output: ${stdout}`);
+        resolve();
+      });
+    });
+
+    await new Promise((resolve, reject) => {
+      exec("nvm use 14", (err, stdout, stderr) => {
+        if (err) {
+          console.error(`Error switching to Node.js version 14: ${stderr}`);
+          return reject(err);
+        }
+        console.log(`Switched to Node.js version 14: ${stdout}`);
+        resolve();
+      });
+    });
+
     await concurrently(
       [
         {
@@ -28,7 +62,6 @@ const concurrently = require("concurrently");
           name: "ufpr",
           prefixColor: "cyan",
         },
-        { command: "npm run dev", cwd: "middleware", name: "middleware", prefixColor: "magenta" },
         {
           command: "npm run develop",
           cwd: "capa-award-api-unespar/strapi-app",

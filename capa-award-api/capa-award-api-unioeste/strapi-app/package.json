@@ -1,8 +1,8 @@
 {
-  "name": "strapi-app-ufpr",
+  "name": "strapi-app-unioeste",
   "private": true,
   "version": "0.1.0",
-  "description": "Api application to UFPR",
+  "description": "Api application to Unioeste",
   "scripts": {
     "develop": "strapi develop",
     "start": "strapi start",
