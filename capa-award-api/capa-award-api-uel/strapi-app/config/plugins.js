@@ -30,5 +30,13 @@ module.exports = ({ env }) => ({
       sizeLimit: 5 * 1024 * 1024,
       logger: console,
     },
+    actionOptions: {
+      upload: {
+        ACL: null, 
+      },
+      uploadStream: {
+        ACL: null,
+      },
+    },
   },
 });

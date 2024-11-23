@@ -18,7 +18,7 @@ module.exports = ({ env }) => ({
       defaultReplyTo: env("MAIL_DEFAULT_REPLY_TO"),
     },
   },
-  upload: {
+upload: {
     provider: "aws-s3",
     providerOptions: {
       accessKeyId: env("S3_AWS_ACCESS_KEY"),
@@ -29,6 +29,14 @@ module.exports = ({ env }) => ({
       },
       sizeLimit: 5 * 1024 * 1024,
       logger: console,
+    },
+    actionOptions: {
+      upload: {
+        ACL: null, 
+      },
+      uploadStream: {
+        ACL: null,
+      },
     },
   },
 });
