@@ -78,39 +78,51 @@ export default function DashboardEdictListAdvisor(){
         ...filteredRegisters
     ]
 
-    return ( 
-        <>
-            <ContainerAuthenticated sided={"activities"}> 
-                <Row>
-                    <Col>
-                        <FullPage>
-                            <ActionsEnd>
-                                <ActionsContainerEnd>
-                                    {
-                                        user?.isAdmin || user?.access_level === 'Coordenador' ? 
-                                        <Button primary nospace onClick={() => window.location.href = '/activities/create/edicts'}>Novo edital</Button>
-                                            :
-                                        null
-                                    }
-                                    <Button primary nospace onClick={() => history.back()}>Voltar</Button>
-                                </ActionsContainerEnd>
-                            </ActionsEnd>
-                            <DashboardTitle centred>Editais</DashboardTitle>
-                            <SearchContainer>
-                                <Input placeholder="Pesquisar" value={searchExpression} onChange={e => setSearchExpression(e.target.value)} />
-                                <FilterButton>
-                                    <Button primary nospace >
-                                        <FilterIcon />
-                                    </Button>
-                                </FilterButton>
-                            </SearchContainer>
+    return (
+      <>
+        <ContainerAuthenticated sided={"activities"}>
+          <Row>
+            <Col>
+              <FullPage>
+                <ActionsEnd>
+                  <ActionsContainerEnd>
+                    {user?.isAdmin || user?.access_level === "Coordenador" ? (
+                      <Button
+                        primary
+                        nospace
+                        onClick={() => (window.location.href = "/activities/create/edicts")}
+                      >
+                        Novo edital
+                      </Button>
+                    ) : null}
+                    <Button primary nospace onClick={() => history.goBack()}>
+                      Voltar
+                    </Button>
+                  </ActionsContainerEnd>
+                </ActionsEnd>
+                <DashboardTitle centred>Editais</DashboardTitle>
+                <SearchContainer>
+                  <Input
+                    placeholder="Pesquisar"
+                    value={searchExpression}
+                    onChange={(e) => setSearchExpression(e.target.value)}
+                  />
+                  <FilterButton>
+                    <Button primary nospace>
+                      <FilterIcon />
+                    </Button>
+                  </FilterButton>
+                </SearchContainer>
 
-                            <BasicTable loading={loading} columns={columns} rows={rows.filter(filterSearchExpression)} />
-                            
-                        </FullPage>
-                    </Col>
-                </Row>
-            </ContainerAuthenticated> 
-        </>
+                <BasicTable
+                  loading={loading}
+                  columns={columns}
+                  rows={rows.filter(filterSearchExpression)}
+                />
+              </FullPage>
+            </Col>
+          </Row>
+        </ContainerAuthenticated>
+      </>
     );
 }

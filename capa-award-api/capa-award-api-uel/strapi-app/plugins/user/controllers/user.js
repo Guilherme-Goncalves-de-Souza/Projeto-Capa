@@ -348,9 +348,9 @@ module.exports = {
   },
   async getHomepageData(ctx) {
     try {
-      const articleCount = await strapi.query("articles").count();
+      const articleCount = await strapi.query("article").count();
 
-      const edictCount = await strapi.query("edicts").count();
+      const edictCount = await strapi.query("edict").count();
 
       const users = await strapi.query("user", "users-permissions").find();
       const userCounts = users.reduce((acc, user) => {
@@ -365,7 +365,7 @@ module.exports = {
         userCounts,
       });
     } catch (error) {
-      ctx.send({ error: "Erro ao buscar dados internos" }, 500);
+      ctx.send({ error: "Erro ao buscar dados internos: ", error }, 500);
     }
   },
 };

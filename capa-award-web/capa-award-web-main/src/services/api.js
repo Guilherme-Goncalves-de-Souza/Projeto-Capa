@@ -6,6 +6,11 @@ const ENDPOINTS = {
   UFPR: "http://localhost:1340",
   UEM: "http://localhost:1339",
   UEL: "http://localhost:1338",
+  UEPG: "http://localhost:1341",
+  UNIOESTE: "http://localhost:1342",
+  UNICENTRO: "http://localhost:1343",
+  UENP: "http://localhost:1344",
+  UNESPAR: "http://localhost:1345",
 };
 
 /**

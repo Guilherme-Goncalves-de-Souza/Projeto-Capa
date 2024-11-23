@@ -1,54 +1,18 @@
+
 /*
  *
  * HomePage
  *
  */
 /* eslint-disable */
-import React, { memo, useEffect, useState } from "react";
+import React, { memo } from "react";
 import { FormattedMessage } from "react-intl";
 import { upperFirst } from "lodash";
-import { auth, LoadingIndicatorPage } from "strapi-helper-plugin";
+import { auth } from "strapi-helper-plugin";
 import PageTitle from "../../components/PageTitle";
 import { Container, Block } from "./components";
 
 const HomePage = () => {
-  const [userCounts, setUserCounts] = useState({});
-  const [isLoading, setIsLoading] = useState(true);
-  const [articleCount, setArticleCount] = useState(0);
-  const [edictCount, setEdictCount] = useState(0);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch("/admin/homepage-data", {
-          headers: {
-            Authorization: `Bearer ${auth.getToken()}`,
-          },
-        });
-
-        if (!response.ok) {
-          throw new Error("Erro ao buscar dados internos");
-        }
-
-        const data = await response.json();
-
-        setUserCounts(data.userCounts);
-        setArticleCount(data.articleCount);
-        setEdictCount(data.edictCount);
-      } catch (error) {
-        console.error("Erro ao buscar dados internos:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  if (isLoading) {
-    return <LoadingIndicatorPage />;
-  }
-
   const username = auth.getUserInfo()?.firstname || "Usuário";
 
   return (
@@ -60,39 +24,20 @@ const HomePage = () => {
         <div className="row">
           <div className="col-12">
             <Block>
-              <h2>Olá, {upperFirst(username)}!</h2>
+              <h2>Bem-vindo, {upperFirst(username)}!</h2>
               <p>
-                Você está no painel da UENP - Universidade Estadual do Norte do Paraná.
+                Este é o painel administrativo da UENP - Universidade Estadual
+                do Norte do Paraná.
               </p>
-              <hr />
-              <h3 style={{ margin: "1rem 0" }}>Visão Geral</h3>
-
-              <h4 style={{ marginBottom: "1rem" }}>Artigos e Editais</h4>
-              <ul style={{ marginBottom: "1rem" }}>
-                <li>Quantidade de artigos postados: {articleCount}</li>
-                <li>Quantidade de editais criados: {edictCount}</li>
-              </ul>
-
-              <hr />
-              <h4 style={{ marginBottom: "1rem" }}>
-                Usuários por Tipo de Acesso
-              </h4>
-              <table className="table">
-                <thead>
-                  <tr>
-                    <th>Tipo de Acesso</th>
-                    <th>Quantidade</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {Object.entries(userCounts).map(([level, count]) => (
-                    <tr key={level}>
-                      <td>{level}</td>
-                      <td>{count}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+              <p>
+                Aqui você pode gerenciar recursos da API, como artigos, editais
+                e usuários. Use as ferramentas disponíveis para manter o
+                conteúdo atualizado e bem estruturado.
+              </p>
+              <p>
+                Explore o menu lateral para acessar as funcionalidades e
+                configurar o sistema conforme necessário.
+              </p>
             </Block>
           </div>
         </div>
