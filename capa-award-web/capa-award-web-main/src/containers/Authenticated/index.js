@@ -29,7 +29,6 @@ export default function ContainerAuthenticated({ children, sided }){
             completeNext()
         }
     }
-
     const sideOptions = [
       {
         title: "Atividades",
@@ -60,7 +59,7 @@ export default function ContainerAuthenticated({ children, sided }){
             ]
           : [
               { title: "Editais", page: "activities" },
-              { title: "Histórico de editais", page: "activities/list/article" },
+              { title: "Histórico de artigos", page: "activities/list/article" },
               { title: "Grupos de escrita", page: "activities/center/write" },
               { title: "Assessoria", page: "activities/list/acessor" },
             ],

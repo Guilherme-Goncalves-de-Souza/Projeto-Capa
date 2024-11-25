@@ -1,32 +1,28 @@
-import React, { useContext, useState } from "react";  
+import React, { useContext, useState } from "react";
 
-import {  
-    DashboardAnimation,
-    DashboardTitle,
-    DashboardText,
-    SearchContainer,
-
-    EdictWrapper,
-    EdictItem,
-    EdictItemTitle,
-    EdictItemSubtitle,
-    EdictItemContentImage,
-    EdictItemImage,
-    EdictItemDescription,
-    EdictItemDate,
-
-    FilterIcon,
-    FilterButton,
-
-    FullPage,
-    ActionsContainer,
-    ContentTitle,
-    ContentText,
-    ActionsEnd,
-    ActionsContainerEnd,                                                                                   
-    ContentTableAction,
-    ContentTableStatus
-    
+import {
+  DashboardAnimation,
+  DashboardTitle,
+  DashboardText,
+  SearchContainer,
+  EdictWrapper,
+  EdictItem,
+  EdictItemTitle,
+  EdictItemSubtitle,
+  EdictItemContentImage,
+  EdictItemImage,
+  EdictItemDescription,
+  EdictItemDate,
+  FilterIcon,
+  FilterButton,
+  FullPage,
+  ActionsContainer,
+  ContentTitle,
+  ContentText,
+  ActionsEnd,
+  ActionsContainerEnd,
+  ContentTableAction,
+  ContentTableStatus,
 } from "./styled";
 
 import ContainerAuthenticated from "containers/Authenticated";
@@ -40,89 +36,108 @@ import { CoreContext } from "context/CoreContext";
 import useController from "./controller";
 import useSearchExpression from "hooks/useSearchExpression";
 
-export default function DashboardEdictListAdvisor(){  
+export default function DashboardEdictListAdvisor() {
+  const history = useHistory();
+  const navigate = (to) => history.push(`/${to}`);
 
-    const history = useHistory(); 
-    const navigate = to => history.push(`/${ to }`);  
+  const { user } = useContext(CoreContext);
 
-    const { user } = useContext(CoreContext)
+  const { loading, registers } = useController();
+  const { searchExpression, setSearchExpression, filterSearchExpression } = useSearchExpression();
 
-    const { loading, registers } = useController()
-    const { searchExpression, setSearchExpression, filterSearchExpression } = useSearchExpression()
+  const columns = [
+    { title: "Edital", ref: "edict" },
+    !user?.isAdmin ? null : { title: "Status", ref: "status" },
+    {
+      title: "Ações",
+      renderCell: ({ row }) =>
+        !row?.id ? null : (
+          <ContentTableAction>
+            { user?.isAdmin && user?.access_level === "Coordenador" ? (
+              <div style={{display:'flex', flexDirection:'row', gap:'0.5rem'}}>
+                <Button
+                  secondary
+                  link
+                  nospace
+                  onClick={() => navigate(`activities/list/article/${row.id}`)}
+                >
+                  Ver artigos
+                </Button>
+                <Button
+                  secondary
+                  link
+                  nospace
+                  onClick={() => navigate(`activities/create/edicts/${row.id}`)}
+                >
+                  Configurações
+                </Button>
+              </div>
+            ) : (
+              <Button
+                secondary
+                link
+                nospace
+                onClick={() => navigate(`activities/list/article/${row.id}`)}
+              >
+                Ver artigos
+              </Button>
+            )}
+          </ContentTableAction>
+        ),
+    },
+  ].filter((ff) => ff);
 
-    const columns = [
-        { title:'Edital', ref:'edict' },
-        !user?.isAdmin ? null : { title:'Status', ref:'status' },
-        { 
-            title: 'Ações', 
-            renderCell: ({ row }) => !row?.id ? null : (
-                <ContentTableAction> 
-                    {
-                        user?.isAdmin ? 
-                            <Button secondary link nospace onClick={() => navigate(`activities/create/edicts/${ row.id }`)}>
-                                Configurações
-                            </Button> 
-                        :
-                            <Button secondary link nospace onClick={() => navigate(`activities/list/article/${ row.id }`)}>
-                                Ver artigos
-                            </Button> 
-                    }
-                </ContentTableAction>
-            )
-        },
-    ].filter(ff => ff)
-    
-    const filteredRegisters = user?.isAdmin ? registers : registers.filter(register => register.user === user.id);
+  const filteredRegisters = user?.isAdmin
+    ? registers
+    : registers.filter((register) => register.user === user.id);
 
-    const rows = [
-        ...filteredRegisters
-    ]
+  const rows = [...filteredRegisters];
 
-    return (
-      <>
-        <ContainerAuthenticated sided={"activities"}>
-          <Row>
-            <Col>
-              <FullPage>
-                <ActionsEnd>
-                  <ActionsContainerEnd>
-                    {user?.isAdmin || user?.access_level === "Coordenador" ? (
-                      <Button
-                        primary
-                        nospace
-                        onClick={() => (window.location.href = "/activities/create/edicts")}
-                      >
-                        Novo edital
-                      </Button>
-                    ) : null}
-                    <Button primary nospace onClick={() => history.goBack()}>
-                      Voltar
+  return (
+    <>
+      <ContainerAuthenticated sided={"activities"}>
+        <Row>
+          <Col>
+            <FullPage>
+              <ActionsEnd>
+                <ActionsContainerEnd>
+                  {user?.isAdmin || user?.access_level === "Coordenador" ? (
+                    <Button
+                      primary
+                      nospace
+                      onClick={() => (window.location.href = "/activities/create/edicts")}
+                    >
+                      Novo edital
                     </Button>
-                  </ActionsContainerEnd>
-                </ActionsEnd>
-                <DashboardTitle centred>Editais</DashboardTitle>
-                <SearchContainer>
-                  <Input
-                    placeholder="Pesquisar"
-                    value={searchExpression}
-                    onChange={(e) => setSearchExpression(e.target.value)}
-                  />
-                  <FilterButton>
-                    <Button primary nospace>
-                      <FilterIcon />
-                    </Button>
-                  </FilterButton>
-                </SearchContainer>
-
-                <BasicTable
-                  loading={loading}
-                  columns={columns}
-                  rows={rows.filter(filterSearchExpression)}
+                  ) : null}
+                  <Button primary nospace onClick={() => history.goBack()}>
+                    Voltar
+                  </Button>
+                </ActionsContainerEnd>
+              </ActionsEnd>
+              <DashboardTitle centred>Editais</DashboardTitle>
+              <SearchContainer>
+                <Input
+                  placeholder="Pesquisar"
+                  value={searchExpression}
+                  onChange={(e) => setSearchExpression(e.target.value)}
                 />
-              </FullPage>
-            </Col>
-          </Row>
-        </ContainerAuthenticated>
-      </>
-    );
+                <FilterButton>
+                  <Button primary nospace>
+                    <FilterIcon />
+                  </Button>
+                </FilterButton>
+              </SearchContainer>
+
+              <BasicTable
+                loading={loading}
+                columns={columns}
+                rows={rows.filter(filterSearchExpression)}
+              />
+            </FullPage>
+          </Col>
+        </Row>
+      </ContainerAuthenticated>
+    </>
+  );
 }

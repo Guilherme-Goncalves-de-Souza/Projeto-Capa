@@ -166,14 +166,14 @@ export const ContentText = styled.div.attrs({
 
 export const ContentTableAction = styled.div.attrs({ 
 })`            
-    max-width: 180px;
+    max-width: 280px;
     min-width: 160px;
     margin-left: auto;
 `;
 
 export const ContentTableStatus = styled.div.attrs({ 
 })`            
-    max-width: 180px;
+    max-width: 280px;
     margin-left: auto;
     border-radius: 4px;
     padding: 4px;
