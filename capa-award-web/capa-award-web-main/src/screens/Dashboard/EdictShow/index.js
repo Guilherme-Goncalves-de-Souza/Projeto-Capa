@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Worker, Viewer } from '@react-pdf-viewer/core';
-import '@react-pdf-viewer/core/lib/styles/index.css';
-import '@react-pdf-viewer/default-layout/lib/styles/index.css';
+import { Worker, Viewer } from "@react-pdf-viewer/core";
+import "@react-pdf-viewer/core/lib/styles/index.css";
+import "@react-pdf-viewer/default-layout/lib/styles/index.css";
 
 import {
   DashboardAnimation,
@@ -59,11 +59,11 @@ import {
   DialogContentText,
   DialogTitle,
   Button as MuiButton,
-} from '@mui/material';
+} from "@mui/material";
 
 export default function DashboardEdictShow() {
   const history = useHistory();
-  const { loading, register, chats, sentMessage, notifyAll, updateStatus } = useController();
+  const { loading, register, chats, sentMessage, notifyAll, updateStatus, user } = useController();
 
   const [message, setMessage] = useState("");
   const [fileUrl, setFileUrl] = useState("");
@@ -112,11 +112,13 @@ export default function DashboardEdictShow() {
                       </Button>
                     </ActionsContainerEnd>
                   ) : null}
-                  <ActionsContainerEnd>
-                    <Button primary nospace onClick={() => setIsModalOpen(true)}>
-                      Alterar Status
-                    </Button>
-                  </ActionsContainerEnd>
+                  {(user.access_level === "Coordenador") | user.isAdmin && (
+                    <ActionsContainerEnd>
+                      <Button primary nospace onClick={() => setIsModalOpen(true)}>
+                        Alterar Status
+                      </Button>
+                    </ActionsContainerEnd>
+                  )}
                   <ActionsContainerEnd>
                     <Button primary nospace onClick={() => history.goBack()}>
                       Voltar
@@ -129,9 +131,11 @@ export default function DashboardEdictShow() {
                     <DashboardTitle spaced centred>
                       {register?.title}
                     </DashboardTitle>
-                    <div style={{ height: '750px' }}>
+                    <div style={{ height: "750px" }}>
                       {fileUrl && (
-                        <Worker workerUrl={`https://unpkg.com/pdfjs-dist@2.6.347/build/pdf.worker.min.js`}>
+                        <Worker
+                          workerUrl={`https://unpkg.com/pdfjs-dist@2.6.347/build/pdf.worker.min.js`}
+                        >
                           <Viewer fileUrl={fileUrl} />
                         </Worker>
                       )}
@@ -199,15 +203,13 @@ export default function DashboardEdictShow() {
       <Dialog open={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <DialogTitle>Alterar Status do Artigo</DialogTitle>
         <DialogContent>
-          <DialogContentText>
-            Selecione o novo status para o artigo.
-          </DialogContentText>
+          <DialogContentText>Selecione o novo status para o artigo.</DialogContentText>
         </DialogContent>
         <DialogActions>
-          <MuiButton onClick={() => handleStatusChange('accepted')} color="primary">
+          <MuiButton onClick={() => handleStatusChange("accepted")} color="primary">
             Aceito
           </MuiButton>
-          <MuiButton onClick={() => handleStatusChange('not_contemplated')} color="primary">
+          <MuiButton onClick={() => handleStatusChange("not_contemplated")} color="primary">
             Não Contemplado
           </MuiButton>
           <MuiButton onClick={() => setIsModalOpen(false)} color="secondary">
