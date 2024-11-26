@@ -13,7 +13,6 @@ export default function useController(){
     const init = async () => {
         setLoading(true)
         const result = await Read()
-        console.log("reuslt edicts", result);
         if(result && !exposeStrapiError(result)){
             setRegisters(result?.map( item => ({
                 ...item,

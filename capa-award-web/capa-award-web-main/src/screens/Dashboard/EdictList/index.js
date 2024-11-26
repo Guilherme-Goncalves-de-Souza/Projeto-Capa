@@ -47,7 +47,6 @@ export default function DashboardEdictList() {
 
   const { loading, registers } = useController(id);
   const { searchExpression, setSearchExpression, filterSearchExpression } = useSearchExpression();
-
   const columns = user?.isAdmin
     ? [
         { title: "Artigo", ref: "article" },
@@ -74,9 +73,9 @@ export default function DashboardEdictList() {
                     secondary
                     link
                     nospace
-                    onClick={() => navigate(`activities/list/article/${row.id}/edit`)}
+                    onClick={() => navigate(`activities/show/article/${row.id}`)}
                   >
-                    Configurações
+                    Ver artigo
                   </Button>
                 </ContentTableAction>
               </>

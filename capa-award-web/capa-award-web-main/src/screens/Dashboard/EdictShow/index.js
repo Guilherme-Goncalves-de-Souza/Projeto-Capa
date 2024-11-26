@@ -112,13 +112,14 @@ export default function DashboardEdictShow() {
                       </Button>
                     </ActionsContainerEnd>
                   ) : null}
-                  {(user.access_level === "Coordenador") | user.isAdmin && (
+                  {(user.access_level === "Coordenador" || user.isAdmin) && (
                     <ActionsContainerEnd>
                       <Button primary nospace onClick={() => setIsModalOpen(true)}>
                         Alterar Status
                       </Button>
                     </ActionsContainerEnd>
                   )}
+
                   <ActionsContainerEnd>
                     <Button primary nospace onClick={() => history.goBack()}>
                       Voltar

@@ -21,6 +21,11 @@ export default function useController(edictId) {
 
         setRegisters(filteredRegisters);
       }
+    } else if (user.isAdmin) {
+      const result = await Read();
+      if (result && !exposeStrapiError(result)) {
+        setRegisters(result.map(parseEdict));
+      }
     } else {
       const result = await ReadById(user?.id);
       if (result && !exposeStrapiError(result)) {
