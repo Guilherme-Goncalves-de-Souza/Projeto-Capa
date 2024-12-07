@@ -1,18 +1,25 @@
-import React from 'react';
-import { Checkbox } from '@buffetjs/core';
-import { useIntl } from 'react-intl';
-import { get } from 'lodash';
-import PropTypes from 'prop-types';
-import { BaselineAlignment } from 'strapi-helper-plugin';
+import React from "react";
+import { Checkbox } from "@buffetjs/core";
+import { useIntl } from "react-intl";
+import { get } from "lodash";
+import PropTypes from "prop-types";
+import { BaselineAlignment } from "strapi-helper-plugin";
 
-import Button from '../../../../components/FullWidthButton';
-import AuthLink from '../AuthLink';
-import Box from '../Box';
-import Input from '../Input';
-import Logo from '../Logo';
-import Section from '../Section';
+import Button from "../../../../components/FullWidthButton";
+import AuthLink from "../AuthLink";
+import Box from "../Box";
+import Input from "../Input";
+import Logo from "../Logo";
+import Section from "../Section";
 
-const Login = ({ children, formErrors, modifiedData, onChange, onSubmit, requestError }) => {
+const Login = ({
+  children,
+  formErrors,
+  modifiedData,
+  onChange,
+  onSubmit,
+  requestError,
+}) => {
   const { formatMessage } = useIntl();
 
   return (
@@ -61,7 +68,8 @@ const Login = ({ children, formErrors, modifiedData, onChange, onSubmit, request
                   textTransform="capitalize"
                   style={{ marginTop: "10px" }}
                   onClick={() =>
-                    (window.location.href = "http://localhost:5173")
+                    (window.location.href =
+                      "https://www.capaaward.com.br/select")
                   }
                 >
                   Selecionar outro painel
@@ -79,7 +87,7 @@ const Login = ({ children, formErrors, modifiedData, onChange, onSubmit, request
 
 Login.defaultProps = {
   children: null,
-  onSubmit: e => e.preventDefault(),
+  onSubmit: (e) => e.preventDefault(),
   requestError: null,
 };
 
