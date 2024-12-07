@@ -1,17 +1,17 @@
 import { ReadObject, SaveObject } from "./storage";
 
-const BASE_URL = process.env.REACT_APP_API_URL || "http://localhost";
+const BASE_URL = process.env.REACT_APP_MASTER_API_URL || "https://master.capaaward.com.br";
 
 const ENDPOINTS = {
-  localhost: `${BASE_URL}:1337`,
-  UFPR: `${BASE_URL}:1340`,
-  UEM: `${BASE_URL}:1339`,
-  UEL: `${BASE_URL}:1338`,
-  UEPG: `${BASE_URL}:1341`,
-  UNIOESTE: `${BASE_URL}:1342`,
-  UNICENTRO: `${BASE_URL}:1343`,
-  UENP: `${BASE_URL}:1344`,
-  UNESPAR: `${BASE_URL}:1345`,
+  master: BASE_URL, 
+  UFPR: process.env.REACT_APP_UFPR_API || "https://ufpr.capaaward.com.br",
+  UEM: process.env.REACT_APP_UEM_API || "https://uem.capaaward.com.br",
+  UEL: process.env.REACT_APP_UEL_API || "https://uel.capaaward.com.br",
+  UEPG: process.env.REACT_APP_UEPG_API || "https://uepg.capaaward.com.br",
+  UNIOESTE: process.env.REACT_APP_UNIOESTE_API || "https://unioeste.capaaward.com.br",
+  UNICENTRO: process.env.REACT_APP_UNICENTRO_API || "https://unicentro.capaaward.com.br",
+  UENP: process.env.REACT_APP_UENP_API || "https://uenp.capaaward.com.br",
+  UNESPAR: process.env.REACT_APP_UNESPAR_API || "https://unespar.capaaward.com.br",
 };
 
 /**
@@ -25,7 +25,7 @@ const envEndpoint = (universitySigla) => {
     return ENDPOINTS[siglaFromSession];
   }
 
-  return ENDPOINTS["localhost"];
+  return ENDPOINTS["master"]; // Se não houver sigla, utiliza o master.
 };
 
 export const API_ENDPOINT = envEndpoint();
