@@ -1,17 +1,23 @@
 import { ReadObject, SaveObject } from "./storage";
 
+const BASE_URL = process.env.REACT_APP_API_URL || "http://localhost";
+
 const ENDPOINTS = {
-  localhost: process.env.REACT_APP_API_URL,
-  UFPR: "http://localhost:1340",
-  UEM: "http://localhost:1339",
-  UEL: "http://localhost:1338",
-  UEPG: "http://localhost:1341",
-  UNIOESTE: "http://localhost:1342",
-  UNICENTRO: "http://localhost:1343",
-  UENP: "http://localhost:1344",
-  UNESPAR: "http://localhost:1345",
+  localhost: `${BASE_URL}:1337`,
+  UFPR: `${BASE_URL}:1340`,
+  UEM: `${BASE_URL}:1339`,
+  UEL: `${BASE_URL}:1338`,
+  UEPG: `${BASE_URL}:1341`,
+  UNIOESTE: `${BASE_URL}:1342`,
+  UNICENTRO: `${BASE_URL}:1343`,
+  UENP: `${BASE_URL}:1344`,
+  UNESPAR: `${BASE_URL}:1345`,
 };
 
+/**
+ * Retorna o endpoint apropriado com base no domínio atual ou na sigla da universidade.
+ * A prioridade é da sigla da universidade.
+ */
 const envEndpoint = (universitySigla) => {
   const siglaFromSession = universitySigla || ReadObject("universitySigla");
 
@@ -24,11 +30,11 @@ const envEndpoint = (universitySigla) => {
 
 export const API_ENDPOINT = envEndpoint();
 
-
 /**
  * Define o endpoint do frontend
  */
-export const FRONTEND_ENDPOINT = process.env.REACT_APP_FRONTEND_URL ? process.env.REACT_APP_API_URL: "https://award.setipr.net.br/";
+export const FRONTEND_ENDPOINT =
+  process.env.REACT_APP_FRONTEND_URL || "https://award.setipr.net.br/";
 
 /**
  * Obtém os headers padrão para requisições.
