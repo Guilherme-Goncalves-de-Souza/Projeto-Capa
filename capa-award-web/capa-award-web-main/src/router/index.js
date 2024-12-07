@@ -57,7 +57,7 @@ import DashboardAdminNews from "screens/Dashboard/AdminNews";
 
 export default function AppRouter() {
     return (
-      <Router>  
+      <Router basename="/home">  
         <div>
           <Switch>
             <Route path="/" exact> <Landpage /> </Route> 
