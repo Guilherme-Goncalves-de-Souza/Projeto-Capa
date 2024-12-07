@@ -3,11 +3,11 @@ module.exports = {
     {
       name: "middleware",
       script: "npm",
-      args: "start",
+      args: "preview",
       cwd: "/var/www/Projeto-Capa/capa-award-api/middleware",
       env: {
         NODE_ENV: "production",
-        PORT: 5173
+        PORT: 5173,
       },
     },
     {
@@ -88,15 +88,15 @@ module.exports = {
       },
     },
     {
-        name: "capa-award-api-unicentro",
-        script: "npm",
-        args: "start",
-        cwd: "/var/www/Projeto-Capa/capa-award-api/capa-award-api-unicentro/strapi-app",
-        env: {
-            NODE_ENV: "production",
-            HOST: "0.0.0.0",
-            PORT: 1343,
-        },
+      name: "capa-award-api-unicentro",
+      script: "npm",
+      args: "start",
+      cwd: "/var/www/Projeto-Capa/capa-award-api/capa-award-api-unicentro/strapi-app",
+      env: {
+        NODE_ENV: "production",
+        HOST: "0.0.0.0",
+        PORT: 1343,
+      },
     },
     {
       name: "capa-award-api-unioeste",
