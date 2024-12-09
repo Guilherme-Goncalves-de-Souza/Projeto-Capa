@@ -3,7 +3,7 @@ import { ReadObject, SaveObject } from "./storage";
 const BASE_URL = process.env.REACT_APP_MASTER_API_URL || "https://master.capaaward.com.br";
 
 const ENDPOINTS = {
-  master: BASE_URL, 
+  master: BASE_URL,
   UFPR: process.env.REACT_APP_UFPR_API || "https://ufpr.capaaward.com.br",
   UEM: process.env.REACT_APP_UEM_API || "https://uem.capaaward.com.br",
   UEL: process.env.REACT_APP_UEL_API || "https://uel.capaaward.com.br",
@@ -58,24 +58,19 @@ export const GetHeaders = async (authenticated) => {
 export const ServerFetch = async (url, options, authenticated = false, universitySigla) => {
   const apiEndpoint = envEndpoint(universitySigla);
 
+  // Obtém os headers padrão
   const { headers } = await GetHeaders(authenticated);
+
+  // Garante que o Accept está configurado para JSON
+  headers["Accept"] = "application/json";
 
   try {
     const response = await fetch(`${apiEndpoint}${url}`, { ...options, headers });
 
-    if (response.status === 403 && authenticated) {
-      await SaveObject("authentication", {});
-    }
-
-    if (!response.ok) {
-      return { error: true, message: `Erro no servidor: ${response.statusText}` };
-    }
-
-    try {
+    // Força a resposta a ser interpretada como JSON
+    if (response.headers.get("content-type")?.includes("application/json")) {
       const jsonResponse = await response.json();
       return jsonResponse;
-    } catch (err) {
-      return { error: true, message: "Erro ao parsear a resposta." };
     }
   } catch (error) {
     return { error: true, message: "Erro na requisição." };

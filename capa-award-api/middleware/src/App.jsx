@@ -4,47 +4,40 @@ import "./App.css";
 function App() {
   const [selectedInstitution, setSelectedInstitution] = useState("");
 
-  const getApiUrl = (subdomain) => {
-    const envVariables = {
-      default: import.meta.env.VITE_API_URL_DEFAULT,
-      ufpr: import.meta.env.VITE_API_URL_UFPR,
-      uem: import.meta.env.VITE_API_URL_UEM,
-      uel: import.meta.env.VITE_API_URL_UEL,
-      uepg: import.meta.env.VITE_API_URL_UEPG,
-      unioeste: import.meta.env.VITE_API_URL_UNIOESTE,
-      unicentro: import.meta.env.VITE_API_URL_UNICENTRO,
-      uenp: import.meta.env.VITE_API_URL_UENP,
-      unespar: import.meta.env.VITE_API_URL_UNESPAR,
-    };
-
-    return envVariables[subdomain] || envVariables.default;
-  };
-
-  const subdomain = window.location.hostname.split(".")[0];
-  const apiUrl = getApiUrl(subdomain);
-
   const institutions = [
-    { name: "UFPR - Universidade Federal do Paraná", url: `${apiUrl}:1340/admin/auth/login` },
-    { name: "UEM - Universidade Estadual de Maringá", url: `${apiUrl}:1339/admin/auth/login` },
-    { name: "UEL - Universidade Estadual de Londrina", url: `${apiUrl}:1338/admin/auth/login` },
+    {
+      name: "UFPR - Universidade Federal do Paraná",
+      url: `${import.meta.env.VITE_API_URL_UFPR}/admin/auth/login`,
+    },
+    {
+      name: "UEM - Universidade Estadual de Maringá",
+      url: `${import.meta.env.VITE_API_URL_UEM}/admin/auth/login`,
+    },
+    {
+      name: "UEL - Universidade Estadual de Londrina",
+      url: `${import.meta.env.VITE_API_URL_UEL}/admin/auth/login`,
+    },
     {
       name: "UEPG - Universidade Estadual de Ponta Grossa",
-      url: `${apiUrl}:1341/admin/auth/login`,
+      url: `${import.meta.env.VITE_API_URL_UEPG}/admin/auth/login`,
     },
     {
       name: "Unioeste - Universidade Estadual do Oeste do Paraná",
-      url: `${apiUrl}:1342/admin/auth/login`,
+      url: `${import.meta.env.VITE_API_URL_UNIOESTE}/admin/auth/login`,
     },
     {
       name: "Unicentro - Universidade Estadual do Centro-Oeste",
-      url: `${apiUrl}:1343/admin/auth/login`,
+      url: `${import.meta.env.VITE_API_URL_UNICENTRO}/admin/auth/login`,
     },
     {
       name: "UENP - Universidade Estadual do Norte do Paraná",
-      url: `${apiUrl}:1344/admin/auth/login`,
+      url: `${import.meta.env.VITE_API_URL_UENP}/admin/auth/login`,
     },
-    { name: "Unespar - Universidade Estadual do Paraná", url: `${apiUrl}:1345/admin/auth/login` },
-    { name: "Painel Padrão", url: `${apiUrl}:1337/admin/auth/login` },
+    {
+      name: "Unespar - Universidade Estadual do Paraná",
+      url: `${import.meta.env.VITE_API_URL_UNESPAR}/admin/auth/login`,
+    },
+    { name: "Painel Padrão", url: `${import.meta.env.VITE_API_URL_DEFAULT}/admin/auth/login` },
   ];
 
   const handleRedirect = () => {
